@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MyBarChartView">
+        <attr name="barColor" format="color" />
+        <attr name="highlightBarColor" format="color" />
+        <attr name="barWidth" format="dimension" />
+
+        <attr name="barLabelTextSize" format="dimension" />
+    </declare-styleable>
+</resources>

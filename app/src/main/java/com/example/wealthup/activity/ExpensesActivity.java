@@ -1,0 +1,95 @@
+package com.example.wealthup.activity;
+
+import android.os.Bundle;
+import android.widget.Button;
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.wealthup.R;
+import com.example.wealthup.adapter.ExpenseAdapter;
+import com.example.wealthup.model.Expense;
+import com.example.wealthup.dao.ExpenseDao;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.button.MaterialButtonToggleGroup;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class ExpensesActivity extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
+    private ExpenseAdapter expenseAdapter;
+    private List<Expense> allExpenses;
+    private MaterialButtonToggleGroup timeFilterToggleGroup;
+
+    private ExpenseDao expenseDao;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_expenseslist);
+
+        recyclerView = findViewById(R.id.recycler_view_expenses);
+        timeFilterToggleGroup = findViewById(R.id.time_filter_toggle_group);
+
+        expenseDao = new ExpenseDao();
+        allExpenses = expenseDao.getAllExpenses();
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        expenseAdapter = new ExpenseAdapter(allExpenses);
+        recyclerView.setAdapter(expenseAdapter);
+
+        timeFilterToggleGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
+            if (isChecked) {
+                if (checkedId == R.id.button_dia) {
+                    filterExpenses("Dia");
+                } else if (checkedId == R.id.button_semana) {
+                    filterExpenses("Semana");
+                } else if (checkedId == R.id.button_mes) {
+                    filterExpenses("Mês");
+                }
+            }
+        });
+
+        if (timeFilterToggleGroup.getCheckedButtonId() == R.id.button_mes) {
+            filterExpenses("Mês");
+        }
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.expenses_layout_root), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+    }
+
+    private void filterExpenses(String filterType) {
+        List<Expense> currentFilteredList;
+
+        switch (filterType) {
+            case "Dia":
+                currentFilteredList = allExpenses.stream()
+                        .filter(expense -> expense.getDate().equals("26 de maio"))
+                        .collect(Collectors.toList());
+                break;
+            case "Semana":
+                currentFilteredList = allExpenses.stream()
+                        .filter(expense -> expense.getDate().equals("26 de maio") || expense.getDate().equals("25 de maio") || expense.getDate().equals("24 de maio"))
+                        .collect(Collectors.toList());
+                break;
+            case "Mês":
+            default:
+                currentFilteredList = new ArrayList<>(allExpenses);
+                break;
+        }
+
+        expenseAdapter.updateList(currentFilteredList);
+
+    }
+}
