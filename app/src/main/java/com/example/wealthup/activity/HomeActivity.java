@@ -28,7 +28,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.home);
 
         myChartView = findViewById(R.id.myChartView);
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
         if (myChartView != null) {
             List<Float> values = Arrays.asList(0.6f, 0.4f, 0.8f, 0.65f, 0.3f, 0.7f, 0.5f);
@@ -51,6 +51,8 @@ public class HomeActivity extends AppCompatActivity {
                     startActivity(intent);
                     return true;
                 } else if (itemId == R.id.nav_tarefas) {
+                    Intent intent = new Intent(HomeActivity.this, CalendarActivity.class);
+                    startActivity(intent);
                     return true;
                 } else if (itemId == R.id.nav_perfil) {
                     return true;

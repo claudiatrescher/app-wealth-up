@@ -4,5 +4,19 @@
     <style name="bem_vindo_d">
         <item name="android:textSize">34sp</item>
         <item name="android:textColor">#FFFFFF</item>
+
     </style>
+
+    <style name="CalendarTheme" parent="android:Theme.Material.Light">
+        <item name="android:textColorPrimary">@color/white</item>
+
+        <item name="android:textColorSecondary">@color/white</item>
+
+        <item name="colorAccent">@color/darkred</item>
+
+        <item name="android:fontFamily">@font/poppins_bold</item>
+
+
+    </style>
+
 </resources>

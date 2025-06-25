@@ -68,6 +68,7 @@
             android:textStyle="bold" />
 
         <EditText
+            android:id="@+id/emailText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -83,11 +84,13 @@
             android:textSize="15sp" />
 
         <EditText
+            android:id="@+id/passwordText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="30dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="30dp"
             android:background="@drawable/roundinput"
             android:drawablePadding="10dp"
             android:fontFamily="@font/poppins_medium"
@@ -95,22 +98,6 @@
             android:inputType="textPassword"
             android:padding="12dp"
             android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/forgotPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="24dp"
-            android:fontFamily="@font/poppins_medium"
-            android:clickable="true"
-            android:focusable="true"
-            android:text="Esqueci a senha"
-            android:textColor="#007F94"
-            android:textSize="14sp" />
 
         <Button
             android:id="@+id/loginButton"
