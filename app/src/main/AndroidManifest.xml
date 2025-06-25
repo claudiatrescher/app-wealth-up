@@ -14,7 +14,7 @@
         android:theme="@style/Theme.WealthUp"
         tools:targetApi="31">
         <activity
-            android:name=".activity.InformationsActivity"
+            android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,7 +39,7 @@
             android:exported="true" />
 
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.InformationsActivity"
             android:exported="true" />
 
         <meta-data
