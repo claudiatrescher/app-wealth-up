@@ -42,7 +42,6 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseV
 
     public void updateList(List<ExpenseModel> newList) {
         this.expenseModelList = newList;
-        notifyDataSetChanged();
     }
 
     public static class ExpenseViewHolder extends RecyclerView.ViewHolder {

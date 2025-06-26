@@ -10,7 +10,7 @@ import androidx.cardview.widget.CardView;
 
 import com.example.wealthup.R;
 import com.example.wealthup.dao.DatabaseHelper;
-import com.example.wealthup.database.model.FixedExpense;
+import com.example.wealthup.database.model.FixedExpenseModel;
 import com.example.wealthup.ui.dialog.AddCategoryDialogFragment;
 import com.example.wealthup.ui.dialog.AddFixedExpenseDialogFragment;
 import com.example.wealthup.ui.dialog.AddGoalDialogFragment;
@@ -53,7 +53,7 @@ public class InformationsActivity extends AppCompatActivity
 
     private void loadNearestFixedExpenseNotification() {
         int daysToCheck = 30;
-        FixedExpense nearestExpense = dbHelper.getNearestUpcomingFixedExpense(daysToCheck);
+        FixedExpenseModel nearestExpense = dbHelper.getNearestUpcomingFixedExpense(daysToCheck);
 
         if (nearestExpense != null) {
             long diffMillis = nearestExpense.getDueDateMillis() - System.currentTimeMillis();

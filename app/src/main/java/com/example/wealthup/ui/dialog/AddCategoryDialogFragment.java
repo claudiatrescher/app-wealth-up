@@ -15,7 +15,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.wealthup.R;
 import com.example.wealthup.dao.DatabaseHelper;
-import com.example.wealthup.database.model.Category;
+import com.example.wealthup.database.model.CategoryModel;
 
 public class AddCategoryDialogFragment extends DialogFragment {
 
@@ -74,7 +74,7 @@ public class AddCategoryDialogFragment extends DialogFragment {
                 return;
             }
 
-            Category newCategory = new Category(0, categoryName, selectedColor);
+            CategoryModel newCategory = new CategoryModel(0, categoryName, selectedColor);
             long result = dbHelper.addCategory(newCategory);
 
             if (result != -1) {
