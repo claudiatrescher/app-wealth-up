@@ -1,9 +1,13 @@
 package com.example.wealthup.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.TextView;
+
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +24,9 @@ public class HomeActivity extends AppCompatActivity {
 
     private MyBarChartView myChartView;
     private BottomNavigationView bottomNavigationView;
-
+    TextView nameUserText;
+    SharedPreferences preferences;
+    SharedPreferences.Editor edit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +35,12 @@ public class HomeActivity extends AppCompatActivity {
 
         myChartView = findViewById(R.id.myChartView);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        preferences = PreferenceManager.getDefaultSharedPreferences(HomeActivity.this);
+        edit = preferences.edit();
+
+        nameUserText = findViewById(R.id.nameUserText);
+        nameUserText.setText(preferences.getString("KEY_NAME", ""));
+
 
         if (myChartView != null) {
             List<Float> values = Arrays.asList(0.6f, 0.4f, 0.8f, 0.65f, 0.3f, 0.7f, 0.5f);

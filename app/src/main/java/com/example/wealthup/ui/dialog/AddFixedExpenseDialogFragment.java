@@ -15,7 +15,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.wealthup.R;
 import com.example.wealthup.dao.DatabaseHelper;
-import com.example.wealthup.model.FixedExpense;
+import com.example.wealthup.database.model.FixedExpense;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

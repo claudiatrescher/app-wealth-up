@@ -1,7 +1,7 @@
 package com.example.wealthup.activity;
 
 import android.os.Bundle;
-import android.widget.Button;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -12,9 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wealthup.R;
 import com.example.wealthup.adapter.ExpenseAdapter;
-import com.example.wealthup.model.Expense;
-import com.example.wealthup.dao.ExpenseDao;
-import com.google.android.material.button.MaterialButton;
+import com.example.wealthup.database.model.ExpenseModel;
+import com.example.wealthup.database.dao.ExpenseDao;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ public class ExpensesActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ExpenseAdapter expenseAdapter;
-    private List<Expense> allExpenses;
+    private List<ExpenseModel> allExpens;
     private MaterialButtonToggleGroup timeFilterToggleGroup;
 
     private ExpenseDao expenseDao;
@@ -40,10 +39,10 @@ public class ExpensesActivity extends AppCompatActivity {
         timeFilterToggleGroup = findViewById(R.id.time_filter_toggle_group);
 
         expenseDao = new ExpenseDao();
-        allExpenses = expenseDao.getAllExpenses();
+        allExpens = expenseDao.getAllExpenses();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        expenseAdapter = new ExpenseAdapter(allExpenses);
+        expenseAdapter = new ExpenseAdapter(allExpens);
         recyclerView.setAdapter(expenseAdapter);
 
         timeFilterToggleGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
@@ -70,22 +69,22 @@ public class ExpensesActivity extends AppCompatActivity {
     }
 
     private void filterExpenses(String filterType) {
-        List<Expense> currentFilteredList;
+        List<ExpenseModel> currentFilteredList;
 
         switch (filterType) {
             case "Dia":
-                currentFilteredList = allExpenses.stream()
-                        .filter(expense -> expense.getDate().equals("26 de maio"))
+                currentFilteredList = allExpens.stream()
+                        .filter(expenseModel -> expenseModel.getDate().equals("26 de maio"))
                         .collect(Collectors.toList());
                 break;
             case "Semana":
-                currentFilteredList = allExpenses.stream()
-                        .filter(expense -> expense.getDate().equals("26 de maio") || expense.getDate().equals("25 de maio") || expense.getDate().equals("24 de maio"))
+                currentFilteredList = allExpens.stream()
+                        .filter(expenseModel -> expenseModel.getDate().equals("26 de maio") || expenseModel.getDate().equals("25 de maio") || expenseModel.getDate().equals("24 de maio"))
                         .collect(Collectors.toList());
                 break;
             case "Mês":
             default:
-                currentFilteredList = new ArrayList<>(allExpenses);
+                currentFilteredList = new ArrayList<>(allExpens);
                 break;
         }
 
