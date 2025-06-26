@@ -7,9 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.example.wealthup.model.Category;
-import com.example.wealthup.model.FixedExpense;
-import com.example.wealthup.model.Goal;
+import com.example.wealthup.database.model.Category;
+import com.example.wealthup.database.model.FixedExpense;
+import com.example.wealthup.database.model.Goal;
 
 import java.util.ArrayList;
 import java.util.List;

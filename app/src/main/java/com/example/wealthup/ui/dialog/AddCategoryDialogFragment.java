@@ -1,6 +1,5 @@
 package com.example.wealthup.ui.dialog;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.wealthup.R;
 import com.example.wealthup.dao.DatabaseHelper;
-import com.example.wealthup.model.Category;
+import com.example.wealthup.database.model.Category;
 
 public class AddCategoryDialogFragment extends DialogFragment {
 

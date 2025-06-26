@@ -15,6 +15,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import com.example.wealthup.R;
+import com.example.wealthup.database.dao.UserDao;
+import com.example.wealthup.database.model.UserModel;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText passwordEditText;
     private Button loginButton;
     private TextView createAccountLink;
+    SharedPreferences preferences;
+    SharedPreferences.Editor edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        edit = preferences.edit();
 
         emailEditText = findViewById(R.id.emailText);
         passwordEditText = findViewById(R.id.passwordText);
@@ -89,13 +97,24 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        if (email.equals("teste@teste.com") && password.equals("123456")) {
-            Toast.makeText(MainActivity.this, "Login bem-sucedido!", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-            startActivity(intent);
-            finish();
-        } else {
-            Toast.makeText(MainActivity.this, "E-mail ou senha incorretos.", Toast.LENGTH_LONG).show();
-        }
+        else  {
+
+            UserDao userDao = new UserDao(MainActivity.this);
+            UserModel userB;
+
+            userB = userDao.SelectLogin(email, password);
+
+            if(userB.getId() == 0){
+                Toast.makeText(MainActivity.this, "Usuário ou senha incorretos", Toast.LENGTH_SHORT).show();
+            }else{
+
+                edit.putInt("KEY_ID", userB.getId());
+                edit.putString("KEY_NAME",userB.getName());
+                edit.apply();
+
+                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        } 
     }
 }

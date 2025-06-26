@@ -1,6 +1,5 @@
 package com.example.wealthup.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -11,7 +10,7 @@ import androidx.cardview.widget.CardView;
 
 import com.example.wealthup.R;
 import com.example.wealthup.dao.DatabaseHelper;
-import com.example.wealthup.model.FixedExpense;
+import com.example.wealthup.database.model.FixedExpense;
 import com.example.wealthup.ui.dialog.AddCategoryDialogFragment;
 import com.example.wealthup.ui.dialog.AddFixedExpenseDialogFragment;
 import com.example.wealthup.ui.dialog.AddGoalDialogFragment;

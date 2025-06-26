@@ -7,16 +7,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.wealthup.R;
-import com.example.wealthup.model.Expense;
+import com.example.wealthup.database.model.ExpenseModel;
 
 import java.util.List;
 
 public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseViewHolder> {
 
-    private List<Expense> expenseList;
+    private List<ExpenseModel> expenseModelList;
 
-    public ExpenseAdapter(List<Expense> expenseList) {
-        this.expenseList = expenseList;
+    public ExpenseAdapter(List<ExpenseModel> expenseModelList) {
+        this.expenseModelList = expenseModelList;
     }
 
     @NonNull
@@ -28,20 +28,20 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseV
 
     @Override
     public void onBindViewHolder(@NonNull ExpenseViewHolder holder, int position) {
-        Expense expense = expenseList.get(position);
-        holder.categoryTextView.setText(expense.getCategory());
-        holder.dateTextView.setText(expense.getDate());
-        holder.descriptionTextView.setText(expense.getDescription());
-        holder.amountTextView.setText(expense.getAmount());
+        ExpenseModel expenseModel = expenseModelList.get(position);
+        holder.categoryTextView.setText(expenseModel.getCategory());
+        holder.dateTextView.setText(expenseModel.getDate());
+        holder.descriptionTextView.setText(expenseModel.getDescription());
+        holder.amountTextView.setText(expenseModel.getAmount());
     }
 
     @Override
     public int getItemCount() {
-        return expenseList.size();
+        return expenseModelList.size();
     }
 
-    public void updateList(List<Expense> newList) {
-        this.expenseList = newList;
+    public void updateList(List<ExpenseModel> newList) {
+        this.expenseModelList = newList;
         notifyDataSetChanged();
     }
 

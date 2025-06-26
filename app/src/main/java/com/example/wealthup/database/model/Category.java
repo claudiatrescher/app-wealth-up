@@ -1,4 +1,4 @@
-package com.example.wealthup.model;
+package com.example.wealthup.database.model;
 
 public class Category {
     private int id;

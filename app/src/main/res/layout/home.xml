@@ -43,6 +43,7 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/nameUserText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_bold"
@@ -139,6 +140,11 @@
                     android:layout_height="8dp" />
             </LinearLayout>
 
+            <FrameLayout
+                android:id="@+id/flFragment"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -184,16 +190,6 @@
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
-    <FrameLayout
-        android:id="@+id/flFragment"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
