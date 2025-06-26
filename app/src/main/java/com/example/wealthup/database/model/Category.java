@@ -3,10 +3,10 @@ package com.example.wealthup.database.model;
 public class Category {
     private int id;
     private String name;
-    private String color; // Armazena a cor como String (ex: "#RRGGBB" ou "red")
+    private String color;
 
     public Category() {
-        // Construtor vazio
+
     }
 
     public Category(int id, String name, String color) {

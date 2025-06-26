@@ -1,94 +1,53 @@
-package com.example.wealthup.activity;
+package com.example.wealthup.activity; // Ou o pacote onde você deseja que esta Activity esteja
 
 import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.wealthup.R;
-import com.example.wealthup.adapter.ExpenseAdapter;
-import com.example.wealthup.database.model.ExpenseModel;
-import com.example.wealthup.database.dao.ExpenseDao;
-import com.google.android.material.button.MaterialButtonToggleGroup;
+import com.example.wealthup.fragment.ChartAndPreviewFragment;
+import com.example.wealthup.fragment.FullExpensesListFragment;
+import com.example.wealthup.ui.dialog.AddExpenseDialogFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+public class ExpensesActivity extends AppCompatActivity implements
+        ChartAndPreviewFragment.OnSeeAllExpensesClickListener {
 
-public class ExpensesActivity extends AppCompatActivity {
-
-    private RecyclerView recyclerView;
-    private ExpenseAdapter expenseAdapter;
-    private List<ExpenseModel> allExpens;
-    private MaterialButtonToggleGroup timeFilterToggleGroup;
-
-    private ExpenseDao expenseDao;
+    private FloatingActionButton fabAddExpense;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_expenseslist);
+        setContentView(R.layout.activity_main_expenses);
 
-        recyclerView = findViewById(R.id.recycler_view_expenses);
-        timeFilterToggleGroup = findViewById(R.id.time_filter_toggle_group);
+        fabAddExpense = findViewById(R.id.fab_add_expense); // Encontre o FAB
 
-        expenseDao = new ExpenseDao();
-        allExpens = expenseDao.getAllExpenses();
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        expenseAdapter = new ExpenseAdapter(allExpens);
-        recyclerView.setAdapter(expenseAdapter);
-
-        timeFilterToggleGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
-            if (isChecked) {
-                if (checkedId == R.id.button_dia) {
-                    filterExpenses("Dia");
-                } else if (checkedId == R.id.button_semana) {
-                    filterExpenses("Semana");
-                } else if (checkedId == R.id.button_mes) {
-                    filterExpenses("Mês");
-                }
-            }
-        });
-
-        if (timeFilterToggleGroup.getCheckedButtonId() == R.id.button_mes) {
-            filterExpenses("Mês");
+        if (savedInstanceState == null) {
+            loadFragment(new ChartAndPreviewFragment(), false); // false para não adicionar na back stack inicial
         }
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.expenses_layout_root), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+        fabAddExpense.setOnClickListener(v -> {
+            AddExpenseDialogFragment dialogFragment = new AddExpenseDialogFragment();
+            dialogFragment.show(getSupportFragmentManager(), "AddExpenseDialogFragment");
         });
     }
 
-    private void filterExpenses(String filterType) {
-        List<ExpenseModel> currentFilteredList;
+    public void loadFragment(Fragment fragment, boolean addToBackStack) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.expenses_fragment_container, fragment);
 
-        switch (filterType) {
-            case "Dia":
-                currentFilteredList = allExpens.stream()
-                        .filter(expenseModel -> expenseModel.getDate().equals("26 de maio"))
-                        .collect(Collectors.toList());
-                break;
-            case "Semana":
-                currentFilteredList = allExpens.stream()
-                        .filter(expenseModel -> expenseModel.getDate().equals("26 de maio") || expenseModel.getDate().equals("25 de maio") || expenseModel.getDate().equals("24 de maio"))
-                        .collect(Collectors.toList());
-                break;
-            case "Mês":
-            default:
-                currentFilteredList = new ArrayList<>(allExpens);
-                break;
+        if (addToBackStack) {
+            fragmentTransaction.addToBackStack(null);
         }
-
-        expenseAdapter.updateList(currentFilteredList);
-
+        fragmentTransaction.commit();
     }
+
+    @Override
+    public void onSeeAllExpensesClick() {
+        loadFragment(new FullExpensesListFragment(), true);
+    }
+
 }

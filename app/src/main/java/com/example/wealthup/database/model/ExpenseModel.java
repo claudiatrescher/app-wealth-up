@@ -13,13 +13,12 @@ public class ExpenseModel implements Serializable {
             COLUNA_AMOUNT = "amount",
             COLUNA_ID_USER = "_id_user";
 
-    //  Script de criação da tabela
     public static final String
             CREATE_TABLE = "CREATE TABLE " + TABLE_NAME
             + " ( "
             + COLUNA_ID + " integer primary key autoincrement, "
             + COLUNA_CATEGORY + " text not null, "
-            + COLUNA_DATE + " date not null, "
+            + COLUNA_DATE + " integer  not null, "
             + COLUNA_DESCRIPTION + " text not null, "
             + COLUNA_AMOUNT + " real not null, "
             + COLUNA_ID_USER + " integer not null, "
@@ -32,15 +31,23 @@ public class ExpenseModel implements Serializable {
     private int _id;
     private String category;
     private String date;
+    private long dateInMillis;
     private String description;
-    private String amount;
+    private long amount;
     private int id_user;
+
+    public ExpenseModel(int i, String name, double value, long dateMillis, String category) {
+    }
 
     public int get_id() {
         return _id;
     }
     public String getCategory() {
         return category;
+    }
+
+    public long getDateInMillis() {
+        return dateInMillis;
     }
 
     public String getDate() {
@@ -51,7 +58,7 @@ public class ExpenseModel implements Serializable {
         return description;
     }
 
-    public String getAmount() {
+    public long getAmount() {
         return amount;
     }
 
@@ -70,6 +77,10 @@ public class ExpenseModel implements Serializable {
         this.category = category;
     }
 
+    public void setDateInMillis(long dateInMillis) {
+        this.dateInMillis = dateInMillis;
+    }
+
     public void setDate(String date) {
         this.date = date;
     }
@@ -78,7 +89,8 @@ public class ExpenseModel implements Serializable {
         this.description = description;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(long amount) {
         this.amount = amount;
     }
+
 }

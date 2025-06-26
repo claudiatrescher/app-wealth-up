@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.example.wealthup.database.model.Category;
+import com.example.wealthup.database.model.ExpenseModel;
 import com.example.wealthup.database.model.FixedExpense;
 import com.example.wealthup.database.model.Goal;
 
@@ -219,5 +220,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         goal1.put(COLUMN_GOAL_END_DATE, System.currentTimeMillis() + (180L * 24 * 60 * 60 * 1000));
         goal1.put(COLUMN_GOAL_DIVIDED_MONTHLY, 1);
         db.insert(TABLE_GOALS, null, goal1);
+    }
+
+    public long addExpense(ExpenseModel newExpense) {
+        return 0;
     }
 }

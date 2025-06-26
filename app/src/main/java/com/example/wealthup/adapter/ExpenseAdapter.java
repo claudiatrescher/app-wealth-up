@@ -32,7 +32,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseV
         holder.categoryTextView.setText(expenseModel.getCategory());
         holder.dateTextView.setText(expenseModel.getDate());
         holder.descriptionTextView.setText(expenseModel.getDescription());
-        holder.amountTextView.setText(expenseModel.getAmount());
+        holder.amountTextView.setText(Math.toIntExact(expenseModel.getAmount()));
     }
 
     @Override
