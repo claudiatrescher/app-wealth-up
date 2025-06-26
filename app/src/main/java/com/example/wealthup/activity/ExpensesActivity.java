@@ -1,6 +1,8 @@
 package com.example.wealthup.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,8 +28,9 @@ public class ExpensesActivity extends AppCompatActivity {
     private ExpenseAdapter expenseAdapter;
     private List<ExpenseModel> allExpens;
     private MaterialButtonToggleGroup timeFilterToggleGroup;
-
     private ExpenseDao expenseDao;
+    SharedPreferences preferences;
+    SharedPreferences.Editor edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +41,9 @@ public class ExpensesActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view_expenses);
         timeFilterToggleGroup = findViewById(R.id.time_filter_toggle_group);
 
-        expenseDao = new ExpenseDao();
-        allExpens = expenseDao.getAllExpenses();
+        preferences = PreferenceManager.getDefaultSharedPreferences(ExpensesActivity.this);
+        edit = preferences.edit();
+
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         expenseAdapter = new ExpenseAdapter(allExpens);

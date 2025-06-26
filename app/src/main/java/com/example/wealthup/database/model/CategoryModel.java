@@ -1,15 +1,33 @@
 package com.example.wealthup.database.model;
 
-public class Category {
+public class CategoryModel {
+
+    public static final String TABLE_NAME = "tb_category";
+    public static final String
+            COLUNA_ID = "_id",
+            COLUNA_NAME = "name",
+            COLUNA_COLOR = "color";
+
+    //  Script de criação da tabela
+    public static final String
+            CREATE_TABLE = "CREATE TABLE " + TABLE_NAME
+            + " ( "
+            + COLUNA_ID + " integer primary key autoincrement, "
+            + COLUNA_NAME + " text not null, "
+            + COLUNA_COLOR + " text not null, "
+            + " );";
+
+    public static final String
+            DROP_TABLE =  "drop table if exist " + TABLE_NAME + ";";
     private int id;
     private String name;
     private String color; // Armazena a cor como String (ex: "#RRGGBB" ou "red")
 
-    public Category() {
+    public CategoryModel() {
         // Construtor vazio
     }
 
-    public Category(int id, String name, String color) {
+    public CategoryModel(int id, String name, String color) {
         this.id = id;
         this.name = name;
         this.color = color;

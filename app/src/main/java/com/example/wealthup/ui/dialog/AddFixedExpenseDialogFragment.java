@@ -15,7 +15,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.wealthup.R;
 import com.example.wealthup.dao.DatabaseHelper;
-import com.example.wealthup.database.model.FixedExpense;
+import com.example.wealthup.database.model.FixedExpenseModel;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -85,7 +85,7 @@ public class AddFixedExpenseDialogFragment extends DialogFragment {
                 double value = Double.parseDouble(valueStr);
                 long dueDateMillis = selectedDate.getTimeInMillis();
 
-                FixedExpense newExpense = new FixedExpense(0, name, value, dueDateMillis);
+                FixedExpenseModel newExpense = new FixedExpenseModel(0, name, value, dueDateMillis);
                 long result = dbHelper.addFixedExpense(newExpense);
 
                 if (result != -1) {

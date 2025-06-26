@@ -19,7 +19,7 @@ public class ExpenseModel implements Serializable {
             + " ( "
             + COLUNA_ID + " integer primary key autoincrement, "
             + COLUNA_CATEGORY + " text not null, "
-            + COLUNA_DATE + " date not null, "
+            + COLUNA_DATE + " string not null, "
             + COLUNA_DESCRIPTION + " text not null, "
             + COLUNA_AMOUNT + " real not null, "
             + COLUNA_ID_USER + " integer not null, "
@@ -29,15 +29,15 @@ public class ExpenseModel implements Serializable {
     public static final String
             DROP_TABLE =  "drop table if exist " + TABLE_NAME + ";";
 
-    private int _id;
+    private int id;
     private String category;
     private String date;
     private String description;
-    private String amount;
+    private int amount;
     private int id_user;
 
-    public int get_id() {
-        return _id;
+    public int getId() {
+        return id;
     }
     public String getCategory() {
         return category;
@@ -51,7 +51,7 @@ public class ExpenseModel implements Serializable {
         return description;
     }
 
-    public String getAmount() {
+    public int getAmount() {
         return amount;
     }
 
@@ -62,8 +62,8 @@ public class ExpenseModel implements Serializable {
         this.id_user = id_user;
     }
 
-    public void set_id(int _id) {
-        this._id = _id;
+    public void setId(int _id) {
+        this.id = id;
     }
 
     public void setCategory(String category) {
@@ -78,7 +78,7 @@ public class ExpenseModel implements Serializable {
         this.description = description;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 }
