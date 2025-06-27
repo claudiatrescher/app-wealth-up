@@ -3,7 +3,9 @@ package com.example.wealthup.ui.dialog;
 import static com.example.wealthup.R.*;
 
 import android.app.DatePickerDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +17,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.wealthup.R;
-import com.example.wealthup.dao.DatabaseHelper;
+import com.example.wealthup.database.DBOpenHelper;
+import com.example.wealthup.database.dao.IncomeDao;
 import com.example.wealthup.database.model.ExpenseModel;
+import com.example.wealthup.database.model.IncomeModel;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.SimpleDateFormat;
@@ -27,8 +31,10 @@ public class AddIncomeDialogFragment extends DialogFragment {
 
     private TextInputEditText editTextIncomeName, editTextIncomeValue, editTextIncomeDate, editTextIncomeCategory;
     private Button buttonCancelIncome, buttonSaveIncome;
-    private DatabaseHelper dbHelper;
     private Calendar selectedDate;
+
+    SharedPreferences preferences;
+    SharedPreferences.Editor edit;
 
     public interface OnExpenseAddedListener {
         void onExpenseAdded();
@@ -51,7 +57,8 @@ public class AddIncomeDialogFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_add_income, container, false);
 
-        dbHelper = new DatabaseHelper(getContext());
+        preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        edit = preferences.edit();
 
         editTextIncomeName = view.findViewById(R.id.editTextIncomeName);
         editTextIncomeValue = view.findViewById(R.id.editTextIncomeValue);
@@ -97,18 +104,19 @@ public class AddIncomeDialogFragment extends DialogFragment {
             try {
                 double value = Double.parseDouble(valueStr);
                 long dateMillis = selectedDate.getTimeInMillis();
-                ExpenseModel newExpense = new ExpenseModel(0, name, value, dateMillis, category);
+                IncomeModel newIncome = new IncomeModel(name, value, dateMillis, category, preferences.getInt("KEY_ID", 0));
+                IncomeDao dao = new IncomeDao(getContext());
 
-                long result = dbHelper.addExpense(newExpense);
+                long result = dao.Insert(newIncome);
 
                 if (result != -1) {
-                    Toast.makeText(getContext(), "Gasto adicionado com sucesso!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Ganho adicionado com sucesso!", Toast.LENGTH_SHORT).show();
                     if (listener != null) {
                         listener.onExpenseAdded();
                     }
                     dismiss();
                 } else {
-                    Toast.makeText(getContext(), "Erro ao adicionar gasto.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Erro ao adicionar ganho.", Toast.LENGTH_SHORT).show();
                 }
             } catch (NumberFormatException e) {
                 editTextIncomeValue.setError("Valor inválido");

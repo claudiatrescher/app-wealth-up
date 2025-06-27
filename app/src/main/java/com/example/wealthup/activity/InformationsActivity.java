@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.example.wealthup.R;
-import com.example.wealthup.dao.DatabaseHelper;
 import com.example.wealthup.database.model.FixedExpenseModel;
 import com.example.wealthup.ui.dialog.AddCategoryDialogFragment;
 import com.example.wealthup.ui.dialog.AddFixedExpenseDialogFragment;
@@ -22,7 +21,6 @@ public class InformationsActivity extends AppCompatActivity
         AddFixedExpenseDialogFragment.OnFixedExpenseAddedListener,
         AddGoalDialogFragment.OnGoalAddedListener {
 
-    private DatabaseHelper dbHelper;
     private CardView notificationCard;
     private TextView notificationMessageTextView;
     private TextView notificationItemNameTextView;
@@ -34,7 +32,6 @@ public class InformationsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_informations);
 
-        dbHelper = new DatabaseHelper(this);
 
         notificationCard = findViewById(R.id.notificationCard);
         notificationMessageTextView = findViewById(R.id.notificationMessageTextView);
@@ -53,7 +50,7 @@ public class InformationsActivity extends AppCompatActivity
 
     private void loadNearestFixedExpenseNotification() {
         int daysToCheck = 30;
-        FixedExpenseModel nearestExpense = dbHelper.getNearestUpcomingFixedExpense(daysToCheck);
+        FixedExpenseModel nearestExpense = null;// dbHelper.getNearestUpcomingFixedExpense(daysToCheck);
 
         if (nearestExpense != null) {
             long diffMillis = nearestExpense.getDueDateMillis() - System.currentTimeMillis();
@@ -110,8 +107,8 @@ public class InformationsActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (dbHelper != null) {
-            dbHelper.close();
-        }
+        //if (dbHelper != null) {
+            //dbHelper.close();
+        //}
     }
 }

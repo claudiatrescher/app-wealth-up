@@ -25,6 +25,7 @@ public class CategoryDao extends AbstrataDao {
 
         values.put(CategoryModel.COLUNA_NAME, model.getName());
         values.put(CategoryModel.COLUNA_COLOR, model.getColor());
+        values.put(CategoryModel.COLUNA_ID_USER, model.getIdUser());
 
         long isInsert = db.insert(CategoryModel.TABLE_NAME, null, values);
         id = (int) isInsert;
@@ -34,10 +35,10 @@ public class CategoryDao extends AbstrataDao {
         return id;
     }
 
-    public List<CategoryModel> SelectAll() {
+    public List<CategoryModel> SelectAll(int idUser) {
         List<CategoryModel> list = new ArrayList<>();
         Open();
-        Cursor c = db.rawQuery("SELECT * FROM " + CategoryModel.TABLE_NAME, null);
+        Cursor c = db.rawQuery("SELECT * FROM " + CategoryModel.TABLE_NAME + " WHERE _id_user = ?", new String[]{String.valueOf(idUser)});
         if (c.getCount() > 0) {
             c.moveToFirst();
             do {
@@ -46,6 +47,7 @@ public class CategoryDao extends AbstrataDao {
                 category.setId(c.getInt(0));
                 category.setName(c.getString(1));
                 category.setColor(c.getString(2));
+                category.setIdUser(c.getInt(3));
                 list.add(category);
             } while (c.moveToNext());
 
@@ -60,6 +62,7 @@ public class CategoryDao extends AbstrataDao {
         ContentValues contentValues = new ContentValues();
         contentValues.put(CategoryModel.COLUNA_NAME, model.getName());
         contentValues.put(CategoryModel.COLUNA_COLOR, model.getColor());
+        contentValues.put(CategoryModel.COLUNA_ID_USER, model.getIdUser());
 
         int result = db.update(CategoryModel.TABLE_NAME, contentValues, "id = ?", new String[]{String.valueOf(model.getId())});
 

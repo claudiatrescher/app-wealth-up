@@ -66,14 +66,14 @@
             android:id="@+id/editTextIncomeDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Data do Gasto (dd/mm/aaaa)"
             android:background="@drawable/roundinput"
-            android:inputType="date"
-            android:focusable="false"
             android:clickable="true"
+            android:focusable="false"
+            android:fontFamily="@font/poppins_bold"
+            android:hint="Data do Ganho (dd/mm/aaaa)"
+            android:inputType="date"
             android:textColor="@android:color/black"
-            android:textSize="16sp"
-            android:fontFamily="@font/poppins_bold"/>
+            android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

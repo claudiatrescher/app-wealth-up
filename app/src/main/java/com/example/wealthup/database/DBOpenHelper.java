@@ -8,6 +8,7 @@ import android.util.Log;
 import com.example.wealthup.database.model.CategoryModel;
 import com.example.wealthup.database.model.ExpenseModel;
 import com.example.wealthup.database.model.FixedExpenseModel;
+import com.example.wealthup.database.model.IncomeModel;
 import com.example.wealthup.database.model.UserModel;
 
 
@@ -29,6 +30,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
             sqLiteDatabase.execSQL(ExpenseModel.CREATE_TABLE);
             sqLiteDatabase.execSQL(CategoryModel.CREATE_TABLE);
             sqLiteDatabase.execSQL(FixedExpenseModel.CREATE_TABLE);
+            sqLiteDatabase.execSQL(IncomeModel.CREATE_TABLE);
         } catch (Exception e) {
             Log.e(TAG, "Error creating tables: " + e.getMessage());
         }

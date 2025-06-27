@@ -2,10 +2,10 @@ package com.example.wealthup.database.model;
 
 public class CategoryModel {
 
-    public CategoryModel(int id, String name, String color) {
-        this.id = id;
+    public CategoryModel(String name, String color, int idUser) {
         this.name = name;
         this.color = color;
+        this.idUser = idUser;
     }
 
     public CategoryModel() {
@@ -14,7 +14,8 @@ public class CategoryModel {
     public static final String
             COLUNA_ID = "_id",
             COLUNA_NAME = "name",
-            COLUNA_COLOR = "color";
+            COLUNA_COLOR = "color",
+            COLUNA_ID_USER = "_id_user";
 
     //  Script de criação da tabela
     public static final String
@@ -23,6 +24,8 @@ public class CategoryModel {
             + COLUNA_ID + " integer primary key autoincrement, "
             + COLUNA_NAME + " text not null, "
             + COLUNA_COLOR + " text not null, "
+            + COLUNA_ID_USER + " integer not null, "
+            + "FOREIGN KEY("+COLUNA_ID_USER+") REFERENCES tb_user(_id)"
             + " );";
 
     public static final String
@@ -30,6 +33,7 @@ public class CategoryModel {
     private int id;
     private String name;
     private String color;
+    private int idUser;
 
     // Getters
     public int getId() {
@@ -42,6 +46,14 @@ public class CategoryModel {
 
     public String getColor() {
         return color;
+    }
+
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
 
     // Setters

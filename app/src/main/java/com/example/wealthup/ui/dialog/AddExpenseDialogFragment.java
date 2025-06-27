@@ -109,8 +109,7 @@ public class AddExpenseDialogFragment extends DialogFragment {
                 long dateMillis = selectedDate.getTimeInMillis();
 
                 ExpenseDao expenseDao = new ExpenseDao(getContext());
-                int idUser = preferences.getInt("KEY_ID", 0);
-                ExpenseModel newExpense = new ExpenseModel(name, value, dateMillis, category, idUser);
+                ExpenseModel newExpense = new ExpenseModel(name, value, dateMillis, category, preferences.getInt("KEY_ID", 0));
 
                 int result = expenseDao.Insert(newExpense);
                 Log.d(TAG, "Resultado da inserção: " + result);

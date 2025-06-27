@@ -1,6 +1,8 @@
 package com.example.wealthup.ui.dialog;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.wealthup.R;
-import com.example.wealthup.dao.DatabaseHelper;
+import com.example.wealthup.database.dao.CategoryDao;
 import com.example.wealthup.database.model.CategoryModel;
 
 public class AddCategoryDialogFragment extends DialogFragment {
@@ -22,7 +24,10 @@ public class AddCategoryDialogFragment extends DialogFragment {
     private EditText editTextCategoryName;
     private RadioGroup radioGroupColors;
     private Button buttonCancel, buttonSave;
-    private DatabaseHelper dbHelper;
+
+    SharedPreferences.Editor edit;
+    SharedPreferences preferences;
+
 
     public interface OnCategoryAddedListener {
         void onCategoryAdded();
@@ -45,7 +50,8 @@ public class AddCategoryDialogFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_add_category_modal, container, false);
 
-        dbHelper = new DatabaseHelper(getContext());
+        preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        edit = preferences.edit();
 
         editTextCategoryName = view.findViewById(R.id.editTextCategoryName);
         radioGroupColors = view.findViewById(R.id.radioGroupColors);
@@ -74,8 +80,10 @@ public class AddCategoryDialogFragment extends DialogFragment {
                 return;
             }
 
-            CategoryModel newCategory = new CategoryModel(0, categoryName, selectedColor);
-            long result = dbHelper.addCategory(newCategory);
+            CategoryModel newCategory = new CategoryModel(categoryName, selectedColor, preferences.getInt("KEY_ID", 0));
+            CategoryDao dao = new CategoryDao(getContext());
+
+            long result = dao.Insert(newCategory);
 
             if (result != -1) {
                 Toast.makeText(getContext(), "Categoria adicionada com sucesso!", Toast.LENGTH_SHORT).show();

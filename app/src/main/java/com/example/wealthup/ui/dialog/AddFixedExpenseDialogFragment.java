@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.wealthup.R;
-import com.example.wealthup.dao.DatabaseHelper;
 import com.example.wealthup.database.model.FixedExpenseModel;
 
 import java.text.SimpleDateFormat;
@@ -25,7 +24,6 @@ public class AddFixedExpenseDialogFragment extends DialogFragment {
 
     private EditText editTextName, editTextValue, editTextDueDate;
     private Button buttonCancel, buttonSave;
-    private DatabaseHelper dbHelper;
     private Calendar selectedDate;
 
     public interface OnFixedExpenseAddedListener {
@@ -49,7 +47,6 @@ public class AddFixedExpenseDialogFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_add_fixed_expense_modal, container, false);
 
-        dbHelper = new DatabaseHelper(getContext());
 
         editTextName = view.findViewById(R.id.editTextFixedExpenseName);
         editTextValue = view.findViewById(R.id.editTextFixedExpenseValue);
@@ -85,8 +82,8 @@ public class AddFixedExpenseDialogFragment extends DialogFragment {
                 double value = Double.parseDouble(valueStr);
                 long dueDateMillis = selectedDate.getTimeInMillis();
 
-                FixedExpenseModel newExpense = new FixedExpenseModel(0, name, value, dueDateMillis);
-                long result = dbHelper.addFixedExpense(newExpense);
+                //FixedExpenseModel newExpense = new FixedExpenseModel(name, value, dueDateMillis);
+                long result = 0; //dbHelper.addFixedExpense(newExpense);
 
                 if (result != -1) {
                     Toast.makeText(getContext(), "Gasto fixo adicionado!", Toast.LENGTH_SHORT).show();

@@ -7,7 +7,9 @@ public class FixedExpenseModel {
             COLUNA_ID = "_id",
             COLUNA_NAME = "name",
             COLUNA_VALUE = "value",
-            COLUNA_DATEMILIS = "data_milis",
+            COLUNA_DAY= "day",
+            COLUNA_MONTH = "month",
+            COLUNA_YEAR = "year",
             COLUNA_CATEGORY = "category",
             COLUNA_ID_USER = "_id_user";
 
@@ -18,7 +20,9 @@ public class FixedExpenseModel {
             + COLUNA_ID + " integer primary key autoincrement, "
             + COLUNA_NAME + " text not null, "
             + COLUNA_CATEGORY + " text not null, "
-            + COLUNA_DATEMILIS + " long not null, "
+            + COLUNA_DAY + " int not null, "
+            + COLUNA_MONTH + " int not null, "
+            + COLUNA_YEAR + " int not null, "
             + COLUNA_VALUE + " real not null, "
             + COLUNA_ID_USER + " integer not null, "
             + "FOREIGN KEY("+COLUNA_ID_USER+") REFERENCES tb_user(_id)"
@@ -37,11 +41,11 @@ public class FixedExpenseModel {
     public FixedExpenseModel() {
     }
 
-    public FixedExpenseModel(int id, String name, double value, long dueDateMillis) {
-        this.id = id;
+    public FixedExpenseModel(String name, double value, long dueDateMillis, int idUser) {
         this.name = name;
         this.value = value;
         this.dueDateMillis = dueDateMillis;
+        this.idUser = idUser;
     }
 
     public int getId() {
