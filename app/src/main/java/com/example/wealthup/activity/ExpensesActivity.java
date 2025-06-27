@@ -1,4 +1,4 @@
-package com.example.wealthup.activity; // Ou o pacote onde você deseja que esta Activity esteja
+package com.example.wealthup.activity;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;

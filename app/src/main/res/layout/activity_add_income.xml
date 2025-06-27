@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@drawable/rounded_dialog_background">
+
+    <TextView
+        android:id="@+id/dialogIncomeTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Adicionar Novo Ganho"
+        android:textSize="20sp"
+        android:textColor="@android:color/black"
+        android:fontFamily="@font/poppins_bold"
+        android:layout_marginBottom="16dp"
+        android:gravity="center_horizontal"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        app:hintEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextIncomeName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/roundinput"
+            android:hint="Descrição do Ganho"
+            android:inputType="textCapSentences"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:fontFamily="@font/poppins_bold"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        app:hintEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextIncomeValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Valor (R$)"
+            android:background="@drawable/roundinput"
+            android:inputType="numberDecimal"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:fontFamily="@font/poppins_bold"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutIncomeDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        app:hintEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextIncomeDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Data do Gasto (dd/mm/aaaa)"
+            android:background="@drawable/roundinput"
+            android:inputType="date"
+            android:focusable="false"
+            android:clickable="true"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:fontFamily="@font/poppins_bold"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutIncomeCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        app:hintEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextIncomeCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Categoria"
+            android:background="@drawable/roundinput"
+            android:inputType="textCapWords"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:fontFamily="@font/poppins_bold"
+            android:focusable="false"
+            android:clickable="true"
+            android:drawableEnd="@drawable/chevron_right_24px" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/buttonCancelIncome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancelar"
+            android:backgroundTint="@color/darkred"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="16sp"/>
+
+        <Button
+            android:id="@+id/buttonSaveIncome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:backgroundTint="@color/maingreen"
+            android:text="Salvar"
+            android:textColor="@android:color/white"
+            android:fontFamily="@font/poppins_bold"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+</LinearLayout>
