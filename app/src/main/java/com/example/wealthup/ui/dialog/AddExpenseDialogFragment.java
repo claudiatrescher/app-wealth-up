@@ -4,18 +4,23 @@ import static com.example.wealthup.R.*;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.wealthup.R;
-import com.example.wealthup.dao.DatabaseHelper;
+import com.example.wealthup.activity.MainActivity;
+import com.example.wealthup.database.DBOpenHelper;
+import com.example.wealthup.database.dao.ExpenseDao;
 import com.example.wealthup.database.model.ExpenseModel;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -25,10 +30,14 @@ import java.util.Locale;
 
 public class AddExpenseDialogFragment extends DialogFragment {
 
+    private static final String TAG = "AddExpenseDialog";
     private TextInputEditText editTextName, editTextValue, editTextDate, editTextCategory;
     private Button buttonCancel, buttonSave;
-    private DatabaseHelper dbHelper;
     private Calendar selectedDate;
+    SharedPreferences preferences;
+    SharedPreferences.Editor edit;
+
+
 
     public interface OnExpenseAddedListener {
         void onExpenseAdded();
@@ -51,7 +60,8 @@ public class AddExpenseDialogFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_add_expense, container, false);
 
-        dbHelper = new DatabaseHelper(getContext());
+        preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        edit = preferences.edit();
 
         editTextName = view.findViewById(R.id.editTextExpenseName);
         editTextValue = view.findViewById(R.id.editTextExpenseValue);
@@ -97,10 +107,13 @@ public class AddExpenseDialogFragment extends DialogFragment {
             try {
                 double value = Double.parseDouble(valueStr);
                 long dateMillis = selectedDate.getTimeInMillis();
-                ExpenseModel newExpense = new ExpenseModel(0, name, value, dateMillis, category);
 
-                long result = dbHelper.addExpense(newExpense);
+                ExpenseDao expenseDao = new ExpenseDao(getContext());
+                int idUser = preferences.getInt("KEY_ID", 0);
+                ExpenseModel newExpense = new ExpenseModel(name, value, dateMillis, category, idUser);
 
+                int result = expenseDao.Insert(newExpense);
+                Log.d(TAG, "Resultado da inserção: " + result);
                 if (result != -1) {
                     Toast.makeText(getContext(), "Gasto adicionado com sucesso!", Toast.LENGTH_SHORT).show();
                     if (listener != null) {

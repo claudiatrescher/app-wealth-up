@@ -1,6 +1,8 @@
 package com.example.wealthup.activity; // Ou o pacote onde você deseja que esta Activity esteja
 
 import android.os.Bundle;
+import android.widget.ListView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -16,6 +18,7 @@ public class ExpensesActivity extends AppCompatActivity implements
         ChartAndPreviewFragment.OnSeeAllExpensesClickListener {
 
     private FloatingActionButton fabAddExpense;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,8 @@ public class ExpensesActivity extends AppCompatActivity implements
         }
         fragmentTransaction.commit();
     }
+
+
 
     @Override
     public void onSeeAllExpensesClick() {

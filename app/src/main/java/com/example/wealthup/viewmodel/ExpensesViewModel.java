@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.widget.ListView;
 
 public class ExpensesViewModel extends AndroidViewModel {
 
@@ -23,6 +26,9 @@ public class ExpensesViewModel extends AndroidViewModel {
     private MutableLiveData<List<ExpenseModel>> filteredExpenses = new MutableLiveData<>();
     private MutableLiveData<String> currentFilter = new MutableLiveData<>("Mês");
     private MutableLiveData<String> searchQuery = new MutableLiveData<>("");
+    SharedPreferences preferences;
+    SharedPreferences.Editor edit;
+    private ListView recyclerViewPreviewExpenses;
 
     private ExecutorService executorService;
 
@@ -30,6 +36,8 @@ public class ExpensesViewModel extends AndroidViewModel {
         super(application);
         expenseDao = new ExpenseDao(ExpensesViewModel.this.getApplication());
         executorService = Executors.newSingleThreadExecutor();
+        preferences = PreferenceManager.getDefaultSharedPreferences(ExpensesViewModel.this.getApplication());
+        edit = preferences.edit();
         loadAllExpenses();
     }
 
@@ -52,14 +60,17 @@ public class ExpensesViewModel extends AndroidViewModel {
     }
 
     public void loadAllExpenses() {
-       /* executorService.execute(() -> {
-            List<ExpenseModel> expenses = expenseDao.getAllExpenses();
+       executorService.execute(() -> {
+            List<ExpenseModel> expenses = expenseDao.SelectAll(preferences.getInt("KEY_ID", 0));
             allExpenses.postValue(expenses);
             applyFilters();
-        });*/
+        });
     }
 
     private void applyFilters() {
+
+        loadAllExpenses();
+
         List<ExpenseModel> currentAllExpenses = allExpenses.getValue();
         if (currentAllExpenses == null) {
             currentAllExpenses = new ArrayList<>();

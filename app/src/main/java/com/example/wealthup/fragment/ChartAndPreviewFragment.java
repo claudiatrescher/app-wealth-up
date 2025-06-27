@@ -1,7 +1,9 @@
 package com.example.wealthup.fragment;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -20,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wealthup.R;
 import com.example.wealthup.adapter.ExpenseAdapter;
+import com.example.wealthup.database.dao.ExpenseDao;
 import com.example.wealthup.database.model.ExpenseModel;
 import com.example.wealthup.viewmodel.ExpensesViewModel;
 import com.google.android.material.button.MaterialButtonToggleGroup;
@@ -41,6 +44,9 @@ public class ChartAndPreviewFragment extends Fragment {
     private ExpensesViewModel expensesViewModel;
     private SimpleDateFormat uiDateFormatMonth = new SimpleDateFormat("MMMM", new Locale("pt", "BR"));
     private SimpleDateFormat uiDateFormatDay = new SimpleDateFormat("EEE, dd 'de' MMM", new Locale("pt", "BR"));
+
+    SharedPreferences preferences;
+    SharedPreferences.Editor edit;
 
     public interface OnSeeAllExpensesClickListener {
         void onSeeAllExpensesClick();
@@ -80,10 +86,15 @@ public class ChartAndPreviewFragment extends Fragment {
 
         expensesViewModel = new ViewModelProvider(requireActivity()).get(ExpensesViewModel.class);
 
+        preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        edit = preferences.edit();
+
         recyclerViewPreviewExpenses.setLayoutManager(new LinearLayoutManager(getContext()));
         previewExpenseAdapter = new ExpenseAdapter(new ArrayList<>());
         recyclerViewPreviewExpenses.setAdapter(previewExpenseAdapter);
         recyclerViewPreviewExpenses.setNestedScrollingEnabled(false);
+
+        listExpanses("Mês", null, null);
 
         expensesViewModel.getFilteredExpenses().observe(getViewLifecycleOwner(), expenses -> {
             updateChartAndPreview(expenses);
@@ -126,6 +137,7 @@ public class ChartAndPreviewFragment extends Fragment {
 
         if ("Dia".equals(currentFilter)) {
             textViewDate.setText(uiDateFormatDay.format(calendar.getTime()));
+            listExpanses(currentFilter, null, null);
         } else if ("Semana".equals(currentFilter)) {
             Calendar startOfWeekCal = (Calendar) calendar.clone();
             startOfWeekCal.set(Calendar.DAY_OF_WEEK, startOfWeekCal.getFirstDayOfWeek());
@@ -136,8 +148,10 @@ public class ChartAndPreviewFragment extends Fragment {
             String endOfWeek = new SimpleDateFormat("dd/MM", new Locale("pt", "BR")).format(endOfWeekCal.getTime());
 
             textViewDate.setText("Semana " + startOfWeek + " - " + endOfWeek);
+            listExpanses(currentFilter, startOfWeek, endOfWeek);
         } else {
             textViewDate.setText(uiDateFormatMonth.format(calendar.getTime()));
+            listExpanses(currentFilter, null, null);
         }
         textViewTotalExpenses.setText(String.format(Locale.getDefault(), "R$ %.2f", totalPeriodExpenses));
 
@@ -151,4 +165,28 @@ public class ChartAndPreviewFragment extends Fragment {
         }
         previewExpenseAdapter.updateList(previewList);
     }
-}
+
+    private void listExpanses(String currentFilter, String startOfWeek, String endOfWeek) {
+        Calendar calendar = Calendar.getInstance();
+        List<ExpenseModel> expensesList = new ArrayList<>();
+        ExpenseDao dao = new ExpenseDao(getContext());
+
+        if ("Dia".equals(currentFilter)) {
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            expensesList = dao.SelectByDay(day, preferences.getInt("KEY_ID", 0));
+        } else if ("Semana".equals(currentFilter)) {
+            int month = calendar.get(Calendar.MONTH) + 1;
+            int dayOfWeek = Integer.parseInt(startOfWeek.substring(0, 2));
+            int endOfWeekDay = Integer.parseInt(endOfWeek.substring(0, 2));
+
+            expensesList = dao.SelectByWeek(dayOfWeek, endOfWeekDay, month, preferences.getInt("KEY_ID", 0));
+        } else {
+            int month = calendar.get(Calendar.MONTH) + 1;
+
+            expensesList = dao.SelectByMonth(month, preferences.getInt("KEY_ID", 0));
+        }
+        ExpenseAdapter adapter = new ExpenseAdapter(expensesList);
+        recyclerViewPreviewExpenses.setAdapter(adapter);
+        }
+    }

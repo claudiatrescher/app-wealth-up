@@ -8,7 +8,9 @@ public class ExpenseModel implements Serializable {
     public static final String
             COLUNA_ID = "_id",
             COLUNA_CATEGORY = "category",
-            COLUNA_DATE = "date",
+            COLUNA_DAY = "day",
+            COLUNA_MONTH = "month",
+            COLUNA_YEAR = "year",
             COLUNA_DESCRIPTION = "description",
             COLUNA_AMOUNT = "amount",
             COLUNA_ID_USER = "_id_user";
@@ -18,7 +20,9 @@ public class ExpenseModel implements Serializable {
             + " ( "
             + COLUNA_ID + " integer primary key autoincrement, "
             + COLUNA_CATEGORY + " text not null, "
-            + COLUNA_DATE + " integer  not null, "
+            + COLUNA_DAY + " int not null, "
+            + COLUNA_MONTH + " int not null, "
+            + COLUNA_YEAR + " int not null, "
             + COLUNA_DESCRIPTION + " text not null, "
             + COLUNA_AMOUNT + " real not null, "
             + COLUNA_ID_USER + " integer not null, "
@@ -33,10 +37,15 @@ public class ExpenseModel implements Serializable {
     private String date;
     private long dateInMillis;
     private String description;
-    private long amount;
+    private double amount;
     private int id_user;
 
-    public ExpenseModel(int i, String name, double value, long dateMillis, String category) {
+    public ExpenseModel(String description, double amount, long dateMillis, String category, int id_user) {
+        this.description = description;
+        this.amount = amount;
+        this.dateInMillis = dateMillis;
+        this.category = category;
+        this.id_user = id_user;
     }
 
     public ExpenseModel() {
@@ -61,7 +70,7 @@ public class ExpenseModel implements Serializable {
         return description;
     }
 
-    public long getAmount() {
+    public double getAmount() {
         return amount;
     }
 
@@ -92,7 +101,7 @@ public class ExpenseModel implements Serializable {
         this.description = description;
     }
 
-    public void setAmount(long amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 

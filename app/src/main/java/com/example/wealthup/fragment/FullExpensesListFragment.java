@@ -49,7 +49,7 @@ public class FullExpensesListFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recycler_view_expenses);
         timeFilterToggleGroup = view.findViewById(R.id.time_filter_toggle_group);
-        editTextSearch = view.findViewById(R.id.editTextSearch);
+       // editTextSearch = view.findViewById(R.id.editTextSearch);
 
         // Inicialize o ViewModel (compartilhado com a Activity pai)
         expensesViewModel = new ViewModelProvider(requireActivity()).get(ExpensesViewModel.class);
@@ -79,7 +79,7 @@ public class FullExpensesListFragment extends Fragment {
         });
 
         // Listener para a barra de pesquisa
-        editTextSearch.addTextChangedListener(new TextWatcher() {
+        /*editTextSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
@@ -90,7 +90,7 @@ public class FullExpensesListFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) { }
-        });
+        });*/
 
         // Define o filtro inicial para "Mês" (para que a UI seja carregada corretamente)
         timeFilterToggleGroup.check(R.id.button_mes);
