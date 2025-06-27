@@ -34,7 +34,7 @@ public class FullExpensesListFragment extends Fragment {
     private ExpensesViewModel expensesViewModel;
 
     public FullExpensesListFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -51,19 +51,16 @@ public class FullExpensesListFragment extends Fragment {
         timeFilterToggleGroup = view.findViewById(R.id.time_filter_toggle_group);
        // editTextSearch = view.findViewById(R.id.editTextSearch);
 
-        // Inicialize o ViewModel (compartilhado com a Activity pai)
         expensesViewModel = new ViewModelProvider(requireActivity()).get(ExpensesViewModel.class);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         expenseAdapter = new ExpenseAdapter(new ArrayList<>());
         recyclerView.setAdapter(expenseAdapter);
 
-        // Observar as mudanças nos dados filtrados do ViewModel
         expensesViewModel.getFilteredExpenses().observe(getViewLifecycleOwner(), expenses -> {
-            expenseAdapter.updateList(expenses); // Atualiza a lista completa
+            expenseAdapter.updateList(expenses);
         });
 
-        // Listener para os botões de filtro (Dia/Semana/Mês)
         timeFilterToggleGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
             if (isChecked) {
                 String filterType;
@@ -71,10 +68,10 @@ public class FullExpensesListFragment extends Fragment {
                     filterType = "Dia";
                 } else if (checkedId == R.id.button_semana) {
                     filterType = "Semana";
-                } else { // R.id.button_mes
+                } else {
                     filterType = "Mês";
                 }
-                expensesViewModel.setFilter(filterType); // Define o filtro no ViewModel
+                expensesViewModel.setFilter(filterType);
             }
         });
 
@@ -85,14 +82,13 @@ public class FullExpensesListFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                expensesViewModel.setSearchQuery(s.toString()); // Define a query de pesquisa no ViewModel
+                expensesViewModel.setSearchQuery(s.toString());
             }
 
             @Override
             public void afterTextChanged(Editable s) { }
         });*/
 
-        // Define o filtro inicial para "Mês" (para que a UI seja carregada corretamente)
         timeFilterToggleGroup.check(R.id.button_mes);
     }
 }
