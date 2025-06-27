@@ -9,7 +9,8 @@
     android:background="@drawable/rounded_dialog_background">
 
     <TextView
-        android:id="@+id/dialogTitle" android:layout_width="match_parent"
+        android:id="@+id/dialogTitle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Adicionar Novo Gasto"
         android:textSize="20sp"
@@ -21,6 +22,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:boxBackgroundMode="none"
         android:layout_marginBottom="12dp"
         app:hintEnabled="false">
 
@@ -39,6 +41,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:boxBackgroundMode="none"
         android:layout_marginBottom="12dp"
         app:hintEnabled="false">
 
@@ -58,6 +61,7 @@
         android:id="@+id/textInputLayoutExpenseDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:boxBackgroundMode="none"
         android:layout_marginBottom="12dp"
         app:hintEnabled="false">
 
@@ -79,6 +83,7 @@
         android:id="@+id/textInputLayoutCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:boxBackgroundMode="none"
         android:layout_marginBottom="24dp"
         app:hintEnabled="false">
 

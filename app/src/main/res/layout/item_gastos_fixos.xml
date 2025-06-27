@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="24dp"
+    android:layout_marginTop="16dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/text_fixed_expense_due_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vence em: 05/07"
+                android:layout_alignParentStart="true"
+                android:textSize="14sp"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/black"
+                android:layout_centerVertical="true"/>
+
+            <ImageView
+                android:id="@+id/icon_delete_fixed_expense"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/close_small_24px"
+                android:contentDescription="Excluir gasto fixo"
+                app:tint="@color/darkred"
+                android:layout_alignParentEnd="true" android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/text_fixed_expense_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aluguel"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins_bold"
+                android:layout_alignParentStart="true" android:layout_centerVertical="true"/>
+
+            <TextView
+                android:id="@+id/text_fixed_expense_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="R$ 1.200,00"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins_black"
+                android:textColor="#333333"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

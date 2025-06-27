@@ -141,9 +141,6 @@
             android:text="Cadastrar"
             android:textColor="@android:color/white" />
 
-
-
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

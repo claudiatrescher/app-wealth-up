@@ -97,7 +97,7 @@ public class AddIncomeDialogFragment extends DialogFragment {
             try {
                 double value = Double.parseDouble(valueStr);
                 long dateMillis = selectedDate.getTimeInMillis();
-                ExpenseModel newExpense = new ExpenseModel(0, name, value, dateMillis, category);
+                ExpenseModel newExpense = new ExpenseModel(name, value, dateMillis, category, 0);
 
                 long result = dbHelper.addExpense(newExpense);
 
