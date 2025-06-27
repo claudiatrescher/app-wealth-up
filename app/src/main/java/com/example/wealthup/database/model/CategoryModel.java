@@ -2,6 +2,14 @@ package com.example.wealthup.database.model;
 
 public class CategoryModel {
 
+    public CategoryModel(int id, String name, String color) {
+        this.id = id;
+        this.name = name;
+        this.color = color;
+    }
+
+    public CategoryModel() {
+    }
     public static final String TABLE_NAME = "tb_category";
     public static final String
             COLUNA_ID = "_id",

@@ -28,7 +28,7 @@ public class ExpenseModel implements Serializable {
     public static final String
             DROP_TABLE =  "drop table if exist " + TABLE_NAME + ";";
 
-    private int _id;
+    private int id;
     private String category;
     private String date;
     private long dateInMillis;
@@ -39,8 +39,11 @@ public class ExpenseModel implements Serializable {
     public ExpenseModel(int i, String name, double value, long dateMillis, String category) {
     }
 
-    public int get_id() {
-        return _id;
+    public ExpenseModel() {
+    }
+
+    public int getId() {
+        return id;
     }
     public String getCategory() {
         return category;
@@ -69,8 +72,8 @@ public class ExpenseModel implements Serializable {
         this.id_user = id_user;
     }
 
-    public void set_id(int _id) {
-        this._id = _id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setCategory(String category) {

@@ -7,9 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.example.wealthup.database.model.Category;
+import com.example.wealthup.database.model.CategoryModel;
 import com.example.wealthup.database.model.ExpenseModel;
-import com.example.wealthup.database.model.FixedExpense;
+import com.example.wealthup.database.model.FixedExpenseModel;
 import com.example.wealthup.database.model.Goal;
 
 import java.util.ArrayList;
@@ -86,7 +86,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long addFixedExpense(FixedExpense fixedExpense) {
+    public long addFixedExpense(FixedExpenseModel fixedExpense) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_FIXED_EXPENSE_NAME, fixedExpense.getName());
@@ -99,9 +99,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return id;
     }
 
-    public FixedExpense getNearestUpcomingFixedExpense(int days) {
+    public FixedExpenseModel getNearestUpcomingFixedExpense(int days) {
         SQLiteDatabase db = this.getReadableDatabase();
-        FixedExpense nearestExpense = null;
+        FixedExpenseModel nearestExpense = null;
         long currentTimeMillis = System.currentTimeMillis();
         long futureTimeMillis = currentTimeMillis + (days * 24 * 60 * 60 * 1000L);
 
@@ -118,7 +118,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             int dueDateIndex = cursor.getColumnIndex(COLUMN_FIXED_EXPENSE_DUE_DATE_MILLIS);
 
             if (idIndex != -1 && nameIndex != -1 && valueIndex != -1 && dueDateIndex != -1) {
-                nearestExpense = new FixedExpense(
+                nearestExpense = new FixedExpenseModel(
                         cursor.getInt(idIndex),
                         cursor.getString(nameIndex),
                         cursor.getDouble(valueIndex),
@@ -133,7 +133,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return nearestExpense;
     }
 
-    public long addCategory(Category category) {
+    public long addCategory(CategoryModel category) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_CATEGORY_NAME, category.getName());
@@ -145,8 +145,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return id;
     }
 
-    public List<Category> getAllCategories() {
-        List<Category> categoryList = new ArrayList<>();
+    public List<CategoryModel> getAllCategories() {
+        List<CategoryModel> categoryList = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + TABLE_CATEGORIES + " ORDER BY " + COLUMN_CATEGORY_NAME + " ASC";
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -159,7 +159,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 int colorIndex = cursor.getColumnIndex(COLUMN_CATEGORY_COLOR);
 
                 if (idIndex != -1 && nameIndex != -1 && colorIndex != -1) {
-                    Category category = new Category(
+                    CategoryModel category = new CategoryModel(
                             cursor.getInt(idIndex),
                             cursor.getString(nameIndex),
                             cursor.getString(colorIndex)

@@ -28,7 +28,7 @@ public class ExpensesViewModel extends AndroidViewModel {
 
     public ExpensesViewModel(@NonNull Application application) {
         super(application);
-        expenseDao = new ExpenseDao();
+        expenseDao = new ExpenseDao(ExpensesViewModel.this.getApplication());
         executorService = Executors.newSingleThreadExecutor();
         loadAllExpenses();
     }
@@ -52,11 +52,11 @@ public class ExpensesViewModel extends AndroidViewModel {
     }
 
     public void loadAllExpenses() {
-        executorService.execute(() -> {
+       /* executorService.execute(() -> {
             List<ExpenseModel> expenses = expenseDao.getAllExpenses();
             allExpenses.postValue(expenses);
             applyFilters();
-        });
+        });*/
     }
 
     private void applyFilters() {

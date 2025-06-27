@@ -27,6 +27,7 @@ public class NewAccountActivity extends AppCompatActivity {
     SharedPreferences preferences;
     SharedPreferences.Editor edit;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
