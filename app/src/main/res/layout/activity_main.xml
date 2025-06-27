@@ -22,22 +22,22 @@
         tools:ignore="ContentDescription" />
 
     <TextView
-    android:id="@+id/welcomeText"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="68dp"
-    android:fontFamily="@font/poppins_bold"
-    android:paddingStart="32dp"
-    android:paddingEnd="24dp"
-    android:paddingTop="80dp"
-    android:text="Bem vindo de\nvolta!"
-    android:textColor="@android:color/white"
-    android:textSize="36sp"
-    android:textStyle="bold"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="1.0"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/welcomeText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:fontFamily="@font/poppins_bold"
+        android:paddingStart="32dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="80dp"
+        android:text="Bem vindo de\nvolta!"
+        android:textColor="@android:color/white"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/loginCard"

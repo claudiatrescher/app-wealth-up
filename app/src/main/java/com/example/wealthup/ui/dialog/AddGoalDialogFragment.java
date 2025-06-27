@@ -15,7 +15,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.wealthup.R;
-import com.example.wealthup.dao.DatabaseHelper;
 import com.example.wealthup.database.model.Goal;
 
 import java.text.SimpleDateFormat;
@@ -27,7 +26,6 @@ public class AddGoalDialogFragment extends DialogFragment {
     private EditText editTextName, editTextValue, editTextStartDate, editTextEndDate;
     private CheckBox checkBoxDividedMonthly;
     private Button buttonCancel, buttonSave;
-    private DatabaseHelper dbHelper;
     private Calendar selectedStartDate, selectedEndDate;
 
     public interface OnGoalAddedListener {
@@ -50,8 +48,6 @@ public class AddGoalDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_add_goal_modal, container, false);
-
-        dbHelper = new DatabaseHelper(getContext());
 
         editTextName = view.findViewById(R.id.editTextGoalName);
         editTextValue = view.findViewById(R.id.editTextGoalValue);
@@ -100,7 +96,7 @@ public class AddGoalDialogFragment extends DialogFragment {
                 long endDateMillis = selectedEndDate.getTimeInMillis();
 
                 Goal newGoal = new Goal(0, name, targetAmount, startDateMillis, endDateMillis, dividedMonthly);
-                long result = dbHelper.addGoal(newGoal);
+                long result = 0; //dbHelper.addGoal(newGoal);
 
                 if (result != -1) {
                     Toast.makeText(getContext(), "Meta adicionada com sucesso!", Toast.LENGTH_SHORT).show();
