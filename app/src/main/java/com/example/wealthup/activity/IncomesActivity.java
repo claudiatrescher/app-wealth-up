@@ -45,20 +45,6 @@ public class IncomesActivity extends AppCompatActivity implements
         fabAddIncome = findViewById(R.id.fab_add_income);
         bottomNavigationView = findViewById(R.id.bottomNavInclude);
 
-        LinearLayout commonHeader = findViewById(R.id.headerLayout);
-        nameUserTextInHeader = commonHeader.findViewById(R.id.nameUserText);
-        profileImageInHeader = commonHeader.findViewById(R.id.profileImage);
-        buttonExitApp = commonHeader.findViewById(R.id.buttonExitApp);
-
-        preferences = PreferenceManager.getDefaultSharedPreferences(IncomesActivity.this);
-        edit = preferences.edit();
-
-        nameUserTextInHeader.setText(preferences.getString("KEY_NAME", ""));
-
-        buttonExitApp.setOnClickListener(v -> {
-            showExitConfirmationDialog();
-        });
-
         if (savedInstanceState == null) {
             loadFragment(new IncomeChartFragment(), false);
         }
@@ -103,20 +89,6 @@ public class IncomesActivity extends AppCompatActivity implements
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-    }
-
-    private void showExitConfirmationDialog() {
-        new AlertDialog.Builder(this)
-                .setTitle("Sair do Aplicativo")
-                .setMessage("Tem certeza que deseja sair?")
-                .setPositiveButton("Sim", (dialog, which) -> {
-
-                    finishAffinity();
-                })
-                .setNegativeButton("Não", (dialog, which) -> {
-                    dialog.dismiss();
-                })
-                .show();
     }
 
     public void loadFragment(Fragment fragment, boolean addToBackStack) {

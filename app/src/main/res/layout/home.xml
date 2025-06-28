@@ -19,19 +19,20 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/balanceCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/expensesCard"
+        android:layout_width="302dp"
+        android:layout_height="254dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="24dp"
         app:cardBackgroundColor="@android:color/white"
         app:cardCornerRadius="24dp"
         app:cardElevation="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/incomesCard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavInclude"
-        app:layout_constraintTop_toBottomOf="@+id/headerLayout">
+        app:layout_constraintTop_toBottomOf="@+id/headerLayout"
+        app:layout_constraintVertical_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,11 +44,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppins_bold"
-                android:text="Ter, 27 de Maio"
+                android:text="Visão Geral de Gastos"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -56,24 +57,13 @@
                 android:fontFamily="@font/poppins_black"
                 android:text="R$ 15,00"
                 android:textColor="#333333"
-                android:textSize="46sp" />
-
-            <com.example.wealthup.view.MyBarChartView
-                android:id="@+id/myChartView"
-                android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="16dp"
-                android:paddingStart="4dp"
-                android:paddingTop="4dp"
-                android:paddingEnd="4dp"
-                android:paddingBottom="20dp" />
-
+                android:textSize="40sp" />
 
             <Button
+                android:id="@+id/btnViewExpenses"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="-10dp"
                 android:layout_marginBottom="16dp"
                 android:backgroundTint="@color/darkred"
                 android:fontFamily="@font/poppins_bold"
@@ -81,32 +71,62 @@
                 android:textColor="@android:color/white"
                 android:textSize="16sp" />
 
-            <LinearLayout
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/incomesCard"
+        android:layout_width="304dp"
+        android:layout_height="253dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="24dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="4dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavInclude"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/expensesCard"
+        app:layout_constraintVertical_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Visão Geral de Ganhos"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
 
-                <View
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_marginEnd="4dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="0dp"
+                android:fontFamily="@font/poppins_black"
+                android:text="R$ 1500,00"
+                android:textColor="#333333"
+                android:textSize="40sp" />
 
-                <View
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_marginEnd="4dp" />
-
-                <View
-                    android:layout_width="8dp"
-                    android:layout_height="8dp" />
-            </LinearLayout>
-
-            <FrameLayout
-                android:id="@+id/flFragment"
-                android:layout_width="match_parent"
-                android:layout_height="0dp" />
+            <Button
+                android:id="@+id/btnViewIncomes"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="@color/darkred"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Ver ganhos"
+                android:textColor="@android:color/white"
+                android:textSize="16sp" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

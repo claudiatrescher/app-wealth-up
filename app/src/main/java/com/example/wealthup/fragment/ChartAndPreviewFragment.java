@@ -99,9 +99,9 @@ public class ChartAndPreviewFragment extends Fragment {
         timeFilterToggleGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
             if (isChecked) {
                 String filterType;
-                if (checkedId == R.id.button_dia_ganhos2) {
+                if (checkedId == R.id.button_dia_gastos) {
                     filterType = "Dia";
-                } else if (checkedId == R.id.button_semana_ganhos2) {
+                } else if (checkedId == R.id.button_semana_gastos) {
                     filterType = "Semana";
                 } else {
                     filterType = "Mês";

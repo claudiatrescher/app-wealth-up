@@ -40,7 +40,7 @@ public class IncomeChartFragment extends Fragment {
     private MaterialButtonToggleGroup timeFilterToggleGroup;
     private RecyclerView recyclerViewPreviewIncomes;
     private IncomeAdapter previewIncomeAdapter;
-    //private ImageView imageViewSeeAllIncomes;
+    private ImageView imageViewSeeAllIncomes;
     private IncomeViewModel incomeViewModel;
     SharedPreferences preferences;
     SharedPreferences.Editor edit;
@@ -81,7 +81,7 @@ public class IncomeChartFragment extends Fragment {
         textViewTotalIncomes = view.findViewById(R.id.textViewTotalIncomes);
         timeFilterToggleGroup = view.findViewById(R.id.time_filter_toggle_group_incomes2);
         recyclerViewPreviewIncomes = view.findViewById(R.id.recyclerViewPreviewIncomes);
-        //imageViewSeeAllIncomes = view.findViewById(R.id.imageViewSeeAllExpenses);
+        imageViewSeeAllIncomes = view.findViewById(R.id.imageViewSeeAllIncomes);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         edit = preferences.edit();
@@ -113,11 +113,11 @@ public class IncomeChartFragment extends Fragment {
             }
         });
 
-        /*imageViewSeeAllIncomes.setOnClickListener(v -> {
+        imageViewSeeAllIncomes.setOnClickListener(v -> {
             if (seeAllIncomesClickListener != null) {
                 seeAllIncomesClickListener.onSeeAllIncomesClick();
             }
-        });*/
+        });
 
         timeFilterToggleGroup.check(R.id.button_mes_ganhos2);
     }

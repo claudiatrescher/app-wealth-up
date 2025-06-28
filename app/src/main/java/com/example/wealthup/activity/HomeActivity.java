@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -49,7 +50,6 @@ public class HomeActivity extends AppCompatActivity {
         buttonExitApp = commonHeader.findViewById(R.id.buttonExitApp);
 
 
-        myChartView = findViewById(R.id.myChartView);
         bottomNavigationView = findViewById(R.id.bottomNavInclude);
         preferences = PreferenceManager.getDefaultSharedPreferences(HomeActivity.this);
         edit = preferences.edit();
@@ -69,6 +69,18 @@ public class HomeActivity extends AppCompatActivity {
         } else {
             Log.e("HomeActivity", "myChartView is null!");
         }
+
+        Button btnViewExpenses = findViewById(R.id.btnViewExpenses);
+        btnViewExpenses.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, ExpensesActivity.class);
+            startActivity(intent);
+        });
+
+        Button btnViewIncomes = findViewById(R.id.btnViewIncomes);
+        btnViewIncomes.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, IncomesActivity.class);
+            startActivity(intent);
+        });
 
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
             @Override

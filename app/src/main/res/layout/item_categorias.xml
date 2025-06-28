@@ -32,5 +32,14 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:fontFamily="@font/poppins_bold" />
-</LinearLayout>
+
+        <ImageView
+            android:id="@+id/icon_delete_category"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginBottom="1dp"
+            android:contentDescription="Excluir gasto fixo"
+            android:src="@drawable/close_small_24px"
+            app:tint="@color/darkred" />
+    </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -46,24 +46,11 @@ public class FixedExpensesActivity extends AppCompatActivity
         setContentView(R.layout.activity_fixed_expenses_list);
 
 
-        LinearLayout commonHeader = findViewById(R.id.commonHeaderLayout);
-
-        nameUserTextInHeader = commonHeader.findViewById(R.id.nameUserText);
-        profileImageInHeader = commonHeader.findViewById(R.id.profileImage);
-        buttonExitApp = commonHeader.findViewById(R.id.buttonExitApp);
 
         addFixedExpense = findViewById(R.id.addFixedExpense);
         bottomNavigationView = findViewById(R.id.bottomNavInclude);
 
         addFixedExpense.setOnClickListener(v -> showAddFixedExpenseModal());
-        preferences = PreferenceManager.getDefaultSharedPreferences(FixedExpensesActivity.this);
-        edit = preferences.edit();
-
-        nameUserTextInHeader.setText(preferences.getString("KEY_NAME", ""));
-
-        buttonExitApp.setOnClickListener(v -> {
-            showExitConfirmationDialog();
-        });
 
 
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
@@ -102,20 +89,6 @@ public class FixedExpensesActivity extends AppCompatActivity
             return insets;
         });
 
-    }
-
-    private void showExitConfirmationDialog() {
-        new AlertDialog.Builder(this)
-                .setTitle("Sair do Aplicativo")
-                .setMessage("Tem certeza que deseja sair?")
-                .setPositiveButton("Sim", (dialog, which) -> {
-
-                    finishAffinity();
-                })
-                .setNegativeButton("Não", (dialog, which) -> {
-                    dialog.dismiss();
-                })
-                .show();
     }
 
     private void showAddFixedExpenseModal() {
