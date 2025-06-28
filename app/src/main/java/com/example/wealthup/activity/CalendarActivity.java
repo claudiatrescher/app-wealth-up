@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import com.example.wealthup.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.snackbar.Snackbar;
@@ -23,6 +24,7 @@ public class CalendarActivity extends AppCompatActivity {
     private ConstraintLayout rootLayout;
     private TextView tvMonthHeader;
     private TextView tvSelectedDateHeader;
+    private BottomNavigationView bottomNavigationView;
     private MaterialButtonToggleGroup filterTypeToggleGroup;
     private MaterialButton buttonFilterGastos;
     private MaterialButton buttonFilterGanhos;
@@ -44,6 +46,7 @@ public class CalendarActivity extends AppCompatActivity {
         filterTypeToggleGroup = findViewById(R.id.filter_type_toggle_group);
         buttonFilterGastos = findViewById(R.id.button_filter_gastos);
         buttonFilterGanhos = findViewById(R.id.button_filter_ganhos);
+
 
 
         Calendar currentCalendar = Calendar.getInstance();

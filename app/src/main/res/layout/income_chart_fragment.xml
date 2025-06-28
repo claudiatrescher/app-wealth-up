@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,7 +10,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,17 +22,17 @@
             android:paddingBottom="16dp">
 
             <TextView
-                android:id="@+id/textViewIncomeTitle"
+                android:id="@+id/textViewTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="136dp"
+                android:layout_marginTop="0dp"
+                android:fontFamily="@font/poppins_bold"
                 android:text="Ganhos"
+                android:textColor="@android:color/black"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:textColor="@android:color/black"
-                android:fontFamily="@font/poppins_bold"
-                android:layout_marginTop="24dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.button.MaterialButtonToggleGroup
@@ -46,53 +47,53 @@
                 app:selectionRequired="true"
                 app:cornerRadius="24dp"
                 app:strokeColor="@android:color/transparent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewIncomeTitle"
+                app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_dia_ganhos2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Dia"
-                    android:textColor="@color/filter_button_text_color"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    app:cornerRadius="20dp"
-                    app:backgroundTint="@color/filter_button_background_selector"
-                    app:rippleColor="@android:color/transparent"
-                    style="@style/Widget.Material3.Button.TextButton"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_dia_gastos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Dia"
+                android:textColor="@color/filter_button_text_color"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                app:cornerRadius="20dp"
+                app:backgroundTint="@color/filter_button_background_selector"
+                app:rippleColor="@android:color/transparent"
+                style="@style/Widget.Material3.Button.TextButton"/>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_semana_ganhos2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Semana"
-                    android:textColor="@color/filter_button_text_color"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    app:cornerRadius="20dp"
-                    app:backgroundTint="@color/filter_button_background_selector"
-                    app:rippleColor="@android:color/transparent"
-                    style="@style/Widget.Material3.Button.TextButton"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_semana_gastos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Semana"
+                android:textColor="@color/filter_button_text_color"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                app:cornerRadius="20dp"
+                app:backgroundTint="@color/filter_button_background_selector"
+                app:rippleColor="@android:color/transparent"
+                style="@style/Widget.Material3.Button.TextButton"/>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_mes_ganhos2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Mês"
-                    android:textColor="@color/filter_button_text_color"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    app:cornerRadius="20dp"
-                    app:backgroundTint="@color/filter_button_background_selector"
-                    app:rippleColor="@android:color/transparent"
-                    style="@style/Widget.Material3.Button.TextButton"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_mes_gastos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Mês"
+                android:textColor="@color/filter_button_text_color"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                app:cornerRadius="20dp"
+                app:backgroundTint="@color/filter_button_background_selector"
+                app:rippleColor="@android:color/transparent"
+                style="@style/Widget.Material3.Button.TextButton"/>
 
-            </com.google.android.material.button.MaterialButtonToggleGroup>
+        </com.google.android.material.button.MaterialButtonToggleGroup>
 
             <TextView
                 android:id="@+id/textViewIncomeDate"
@@ -107,7 +108,7 @@
                 app:layout_constraintEnd_toEndOf="parent"/>
 
             <TextView
-                android:id="@+id/textViewTotalIncomes"
+                android:id="@+id/textViewTotalExpenses"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="R$ 0,00"
@@ -119,50 +120,39 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
-            <View
-                android:id="@+id/chart_income_placeholder"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginHorizontal="24dp"
-                android:background="#F0F4C3"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTotalIncomes"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
             <TextView
-                android:id="@+id/textViewIncomeHistoryTitle"
+                android:id="@+id/textViewHistoryTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Histórico de ganhos"
+                android:text="Histórico de ganho"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/black"
                 android:layout_marginTop="24dp"
                 android:layout_marginStart="24dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/chart_income_placeholder"/>
+                app:layout_constraintTop_toBottomOf="@+id/textViewTotalExpenses"/>
 
             <ImageView
-                android:id="@+id/imageViewSeeAllIncomes"
+                android:id="@+id/imageViewSeeAllExpenses"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/chevron_right_24px"
-                android:contentDescription="Ver todos os gastos"
+                android:contentDescription="Ver todos os ganhos"
                 android:padding="8dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textViewIncomeHistoryTitle"
-                app:layout_constraintBottom_toBottomOf="@+id/textViewIncomeHistoryTitle" />
+                app:layout_constraintTop_toTopOf="@+id/textViewHistoryTitle"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewHistoryTitle" />
 
             <EditText
-                android:id="@+id/editIncomeTextSearch"
+                android:id="@+id/editTextSearchHistory"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:hint="Pesquise por categoria ou descrição"
                 android:drawableStart="@drawable/search_24px"
                 android:drawablePadding="8dp"
-                android:padding="12dp"
+                android:padding="1dp"
                 android:background="@drawable/roundinput"
                 android:layout_marginTop="16dp"
                 android:layout_marginHorizontal="24dp"
@@ -171,7 +161,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:textColorHint="#9E9E9E"
                 android:textColor="@android:color/black"
-                app:layout_constraintTop_toBottomOf="@+id/textViewIncomeHistoryTitle"
+                app:layout_constraintTop_toBottomOf="@+id/textViewHistoryTitle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
@@ -180,11 +170,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@+id/editIncomeTextSearch"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                tools:listitem="@layout/item_ganhos" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextSearchHistory"
+                app:layout_constraintVertical_bias="1.0"
+                tools:listitem="@layout/item_gastos" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
