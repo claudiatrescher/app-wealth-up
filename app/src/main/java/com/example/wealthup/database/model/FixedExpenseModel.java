@@ -41,11 +41,12 @@ public class FixedExpenseModel {
     public FixedExpenseModel() {
     }
 
-    public FixedExpenseModel(String name, double value, long dueDateMillis, int idUser) {
+    public FixedExpenseModel(String name, double value, long dateMillis, String category, int id_user) {
         this.name = name;
         this.value = value;
-        this.dueDateMillis = dueDateMillis;
-        this.idUser = idUser;
+        this.dueDateMillis = dateMillis;
+        this.category = category;
+        this.idUser = id_user;
     }
 
     public int getId() {
@@ -63,19 +64,15 @@ public class FixedExpenseModel {
     public void setCategory(String category) {
         this.category = category;
     }
-
     public int getIdUser() {
         return idUser;
     }
-
     public void setIdUser(int idUser) {
         this.idUser = idUser;
     }
-
     public double getValue() {
         return value;
     }
-
     public long getDueDateMillis() {
         return dueDateMillis;
     }
@@ -87,7 +84,6 @@ public class FixedExpenseModel {
     public void setName(String name) {
         this.name = name;
     }
-
     public void setValue(double value) {
         this.value = value;
     }

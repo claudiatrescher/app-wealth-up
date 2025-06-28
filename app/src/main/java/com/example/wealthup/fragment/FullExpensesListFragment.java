@@ -1,8 +1,6 @@
 package com.example.wealthup.fragment;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +19,6 @@ import com.example.wealthup.viewmodel.ExpensesViewModel;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
 public class FullExpensesListFragment extends Fragment {
 
@@ -64,9 +60,9 @@ public class FullExpensesListFragment extends Fragment {
         timeFilterToggleGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
             if (isChecked) {
                 String filterType;
-                if (checkedId == R.id.button_dia) {
+                if (checkedId == R.id.btnCategoryList) {
                     filterType = "Dia";
-                } else if (checkedId == R.id.button_semana) {
+                } else if (checkedId == R.id.btnFixedExpensesList) {
                     filterType = "Semana";
                 } else {
                     filterType = "Mês";
@@ -89,6 +85,6 @@ public class FullExpensesListFragment extends Fragment {
             public void afterTextChanged(Editable s) { }
         });*/
 
-        timeFilterToggleGroup.check(R.id.button_mes);
+        timeFilterToggleGroup.check(R.id.btnGoalsList);
     }
 }

@@ -214,7 +214,7 @@
             android:gravity="center_horizontal">
 
             <ImageButton
-                android:id="@+id/btnCalendar"
+                android:id="@+id/btnCategoryList"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:background="@drawable/circle_button_background"
@@ -272,7 +272,7 @@
             android:gravity="center_horizontal">
 
             <ImageButton
-                android:id="@+id/btnGoals"
+                android:id="@+id/btnGoalsList"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:background="@drawable/circle_button_background"
@@ -316,7 +316,7 @@
         android:layout_marginTop="24dp"
         android:background="@drawable/rounded_filter_bg"
         app:singleSelection="true"
-        app:checkedButton="@id/button_mes"
+        app:checkedButton="@id/btnGoalsList"
         app:selectionRequired="true"
         app:cornerRadius="24dp"
         app:strokeColor="@android:color/transparent"
@@ -325,7 +325,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_dia"
+            android:id="@+id/btnCategoryList"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -339,7 +339,7 @@
             style="@style/Widget.Material3.Button.TextButton"/>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_semana"
+            android:id="@+id/btnFixedExpensesList"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -353,7 +353,7 @@
             style="@style/Widget.Material3.Button.TextButton"/>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_mes"
+            android:id="@+id/btnGoalsList"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

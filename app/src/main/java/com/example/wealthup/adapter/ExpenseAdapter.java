@@ -54,7 +54,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseV
             super(itemView);
             categoryTextView = itemView.findViewById(R.id.text_category);
             dateTextView = itemView.findViewById(R.id.text_date);
-            descriptionTextView = itemView.findViewById(R.id.text_description);
+            descriptionTextView = itemView.findViewById(R.id.text_income_description);
             amountTextView = itemView.findViewById(R.id.text_amount);
         }
     }

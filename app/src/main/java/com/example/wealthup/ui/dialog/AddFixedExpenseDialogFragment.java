@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.wealthup.R;
+import com.example.wealthup.database.dao.FixedExpenseDao;
 import com.example.wealthup.database.model.FixedExpenseModel;
 
 import java.text.SimpleDateFormat;
@@ -82,9 +83,9 @@ public class AddFixedExpenseDialogFragment extends DialogFragment {
                 double value = Double.parseDouble(valueStr);
                 long dueDateMillis = selectedDate.getTimeInMillis();
 
-                //FixedExpenseModel newExpense = new FixedExpenseModel(name, value, dueDateMillis);
-                long result = 0; //dbHelper.addFixedExpense(newExpense);
-
+                FixedExpenseDao expenseDao = new FixedExpenseDao(getContext());
+                //FixedExpenseModel newExpense = new FixedExpenseModel(name, value, dueDateMillis, category, preferences.getInt("KEY_ID", 0));
+                    int result = 0;
                 if (result != -1) {
                     Toast.makeText(getContext(), "Gasto fixo adicionado!", Toast.LENGTH_SHORT).show();
                     if (listener != null) {
