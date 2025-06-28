@@ -21,7 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         app:hintEnabled="false"
-        app:boxBackgroundMode="none"> <com.google.android.material.textfield.TextInputEditText
+        app:boxBackgroundMode="none">
+        <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/editTextCategoryName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

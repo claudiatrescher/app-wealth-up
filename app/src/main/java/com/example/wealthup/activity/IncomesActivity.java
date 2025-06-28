@@ -1,7 +1,20 @@
 package com.example.wealthup.activity;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -10,12 +23,19 @@ import com.example.wealthup.R;
 import com.example.wealthup.fragment.FullIncomesListFragment;
 import com.example.wealthup.fragment.IncomeChartFragment;
 import com.example.wealthup.ui.dialog.AddIncomeDialogFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class IncomesActivity extends AppCompatActivity implements
         IncomeChartFragment.OnSeeAllIncomesClickListener {
 
     private FloatingActionButton fabAddIncome;
+    private BottomNavigationView bottomNavigationView;
+    private TextView nameUserTextInHeader;
+    private ImageView profileImageInHeader;
+    private ImageView buttonExitApp;
+    SharedPreferences preferences;
+    SharedPreferences.Editor edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +43,21 @@ public class IncomesActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main_incomes);
 
         fabAddIncome = findViewById(R.id.fab_add_income);
+        bottomNavigationView = findViewById(R.id.bottomNavInclude);
+
+        LinearLayout commonHeader = findViewById(R.id.headerLayout);
+        nameUserTextInHeader = commonHeader.findViewById(R.id.nameUserText);
+        profileImageInHeader = commonHeader.findViewById(R.id.profileImage);
+        buttonExitApp = commonHeader.findViewById(R.id.buttonExitApp);
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(IncomesActivity.this);
+        edit = preferences.edit();
+
+        nameUserTextInHeader.setText(preferences.getString("KEY_NAME", ""));
+
+        buttonExitApp.setOnClickListener(v -> {
+            showExitConfirmationDialog();
+        });
 
         if (savedInstanceState == null) {
             loadFragment(new IncomeChartFragment(), false);
@@ -32,6 +67,56 @@ public class IncomesActivity extends AppCompatActivity implements
             AddIncomeDialogFragment dialogFragment = new AddIncomeDialogFragment();
             dialogFragment.show(getSupportFragmentManager(), "AddIncomeDialogFragment");
         });
+
+        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemId = item.getItemId();
+
+                if (itemId == R.id.nav_gastos) {
+                    Intent intent = new Intent(IncomesActivity.this, ExpensesActivity.class);
+                    startActivity(intent);
+                    return true;
+                } else if (itemId == R.id.nav_home) {
+                    Intent intent = new Intent(IncomesActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    return true;
+                } else if (itemId == R.id.nav_ganhos) {
+                    return true;
+                } else if (itemId == R.id.nav_categorias) {
+                    Intent intent = new Intent(IncomesActivity.this, CategoryActivity.class);
+                    startActivity(intent);
+                    return true;
+                } else if (itemId == R.id.nav_gastos_fixos) {
+                    Intent intent = new Intent(IncomesActivity.this, FixedExpensesActivity.class);
+                    startActivity(intent);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+
+        bottomNavigationView.setSelectedItemId(R.id.nav_ganhos);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.incomes_fragment_container), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+    }
+
+    private void showExitConfirmationDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Sair do Aplicativo")
+                .setMessage("Tem certeza que deseja sair?")
+                .setPositiveButton("Sim", (dialog, which) -> {
+
+                    finishAffinity();
+                })
+                .setNegativeButton("Não", (dialog, which) -> {
+                    dialog.dismiss();
+                })
+                .show();
     }
 
     public void loadFragment(Fragment fragment, boolean addToBackStack) {

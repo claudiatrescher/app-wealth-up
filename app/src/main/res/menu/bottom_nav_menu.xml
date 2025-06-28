@@ -9,10 +9,14 @@
         android:icon="@drawable/money_bag_24px" android:title="Gastos" />
 
     <item
-        android:id="@+id/nav_tarefas"
-        android:icon="@drawable/calendar_month_24px" android:title="Tarefas" />
+        android:id="@+id/nav_ganhos"
+        android:icon="@drawable/payment_arrow_down_24px" android:title="Ganhos" />
 
     <item
-        android:id="@+id/nav_perfil"
-        android:icon="@drawable/account_circle_24px" android:title="Perfil" />
+        android:id="@+id/nav_categorias"
+        android:icon="@drawable/label_24px" android:title="Categorias" />
+
+    <item
+        android:id="@+id/nav_gastos_fixos"
+        android:icon="@drawable/receipt_long_24px" android:title="Gastos fixos" />
 </menu>
