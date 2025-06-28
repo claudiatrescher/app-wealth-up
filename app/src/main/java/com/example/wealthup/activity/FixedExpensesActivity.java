@@ -56,8 +56,6 @@ public class FixedExpensesActivity extends AppCompatActivity
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         edit = preferences.edit();
 
-
-
         addFixedExpense = findViewById(R.id.addFixedExpense);
         bottomNavigationView = findViewById(R.id.bottomNavInclude);
 
@@ -68,6 +66,9 @@ public class FixedExpensesActivity extends AppCompatActivity
         recycler_view_fixed_expense.setNestedScrollingEnabled(false);
 
         addFixedExpense.setOnClickListener(v -> showAddFixedExpenseModal());
+
+        List<FixedExpenseModel> fixedExpenses = getFixedExpenses();
+        viewAllFixedExpenses(fixedExpenses);
 
 
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
@@ -115,6 +116,14 @@ public class FixedExpensesActivity extends AppCompatActivity
 
     public void viewAllFixedExpenses(List<FixedExpenseModel> fixedExpenses){
         previewFixedExpenseAdapter.updateList(fixedExpenses);
+    }
+    public List<FixedExpenseModel> getFixedExpenses() {
+        FixedExpenseDao dao = new FixedExpenseDao(this);
+        return dao.SelectAll(preferences.getInt("KEY_ID", 0));
+    }
+
+    public void viewAllCategories(List<FixedExpenseModel> category){
+        previewFixedExpenseAdapter.updateList(category);
     }
 
     @Override

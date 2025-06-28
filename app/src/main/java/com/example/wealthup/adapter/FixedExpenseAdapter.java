@@ -27,25 +27,23 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class FixedExpenseAdapter extends RecyclerView.Adapter<FixedExpenseAdapter.ExpenseViewHolder> {
-    private SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-    private List<FixedExpenseModel> expenseModelList;
-    private Context context;
+public class FixedExpenseAdapter extends RecyclerView.Adapter<FixedExpenseAdapter.FixedExpenseViewHolder> {
+    private List<FixedExpenseModel> fixedExpenseModelList;
 
     public FixedExpenseAdapter(List<FixedExpenseModel> expenseModelList) {
-        this.expenseModelList = expenseModelList;
+        this.fixedExpenseModelList = expenseModelList;
     }
 
     @NonNull
     @Override
-    public ExpenseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FixedExpenseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_gastos_fixos, parent, false);
-        return new ExpenseViewHolder(view);
+        return new FixedExpenseViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ExpenseViewHolder holder, int position) {
-        FixedExpenseModel expenseModel = expenseModelList.get(position);
+    public void onBindViewHolder(@NonNull FixedExpenseViewHolder holder, int position) {
+        FixedExpenseModel expenseModel = fixedExpenseModelList.get(position);
 
         String vence = "Vence dia: " + expenseModel.getDueDateMillis();
         holder.text_fixed_expense_due_date.setText(vence);
@@ -55,43 +53,44 @@ public class FixedExpenseAdapter extends RecyclerView.Adapter<FixedExpenseAdapte
 
     @Override
     public int getItemCount() {
-        return expenseModelList.size();
+        return fixedExpenseModelList.size();
     }
 
     @SuppressLint("NotifyDataSetChanged")
     public void updateList(List<FixedExpenseModel> newList) {
-        this.expenseModelList = newList;
+        this.fixedExpenseModelList = newList;
         notifyDataSetChanged();
     }
 
-    public class ExpenseViewHolder extends RecyclerView.ViewHolder {
+    public class FixedExpenseViewHolder extends RecyclerView.ViewHolder {
         TextView text_fixed_expense_name;
         TextView text_fixed_expense_value;
         TextView text_fixed_expense_due_date;
-        //ImageView icon_delete_fixed_expense;
+        ImageView icon_delete_fixed_expense;
 
-        public ExpenseViewHolder(@NonNull View itemView) {
+        public FixedExpenseViewHolder(@NonNull View itemView) {
             super(itemView);
             text_fixed_expense_name = itemView.findViewById(R.id.text_fixed_expense_name);
             text_fixed_expense_value = itemView.findViewById(R.id.text_fixed_expense_value);
             text_fixed_expense_due_date = itemView.findViewById(R.id.text_fixed_expense_due_date);
-            //icon_delete_fixed_expense = itemView.findViewById(R.id.icon_delete_fixed_expense);
+            icon_delete_fixed_expense = itemView.findViewById(R.id.icon_delete_fixed_expense);
 
-            /*icon_delete_fixed_expense.setOnClickListener(new View.OnClickListener() {
+            icon_delete_fixed_expense.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         FixedExpenseDao dao = new FixedExpenseDao(itemView.getContext());
-                        int result = dao.Delete(position);
+                        int id = fixedExpenseModelList.get(position).getId();
+                        int result = dao.Delete(id);
                         if(result != -1){
                             Toast.makeText(itemView.getContext(), "Gasto fixo removido!", Toast.LENGTH_SHORT).show();
-                            expenseModelList.remove(position);
-                            updateList(expenseModelList);
+                            fixedExpenseModelList.remove(position);
+                            updateList(fixedExpenseModelList);
                         }
                     }
                 }
-            });*/
+            });
         }
     }
 }

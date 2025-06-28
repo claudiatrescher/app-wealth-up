@@ -80,7 +80,7 @@
                 style="@style/Widget.Material3.Button.TextButton"/>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_mes_ganhos2"
+                android:id="@+id/button_mes_gastos"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -108,7 +108,7 @@
                 app:layout_constraintEnd_toEndOf="parent"/>
 
             <TextView
-                android:id="@+id/textViewTotalIncomes"
+                android:id="@+id/textViewTotalExpenses"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="R$ 0,00"
@@ -131,7 +131,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginStart="24dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTotalIncomes"/>
+                app:layout_constraintTop_toBottomOf="@+id/textViewTotalExpenses"/>
 
             <ImageView
                 android:id="@+id/imageViewSeeAllIncomes"

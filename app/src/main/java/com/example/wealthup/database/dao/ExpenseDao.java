@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 
 import android.database.Cursor;
+import android.util.Log;
 
 import com.example.wealthup.database.DBOpenHelper;
 import com.example.wealthup.database.model.ExpenseModel;
@@ -222,9 +223,9 @@ public class ExpenseDao extends AbstrataDao{
 
     public int Delete(int id) {
         Open();
-
+        Log.d("TAG", "Delete: " + id);
         int result = db.delete(ExpenseModel.TABLE_NAME, "_id = ?", new String[]{String.valueOf(id)});
-
+        Log.d("TAG", "Delete: " + result);
         Close();
 
         return result;

@@ -154,12 +154,7 @@ public class ChartAndPreviewFragment extends Fragment {
         /*if (barChartView != null) {
            barChartView.setChartData(chartData);
         }*/
-
-        List<ExpenseModel> previewList = new ArrayList<>();
-        for (int i = 0; i < Math.min(expenses.size(), 3); i++) {
-            previewList.add(expenses.get(i));
-        }
-        previewExpenseAdapter.updateList(previewList);
+        previewExpenseAdapter.updateList(expenses);
     }
 
     private void listExpanses(String currentFilter, String startOfWeek, String endOfWeek) {
@@ -182,7 +177,6 @@ public class ChartAndPreviewFragment extends Fragment {
 
             expensesList = dao.SelectByMonth(month, preferences.getInt("KEY_ID", 0));
         }
-        ExpenseAdapter adapter = new ExpenseAdapter(expensesList);
-        recyclerViewPreviewExpenses.setAdapter(adapter);
+        previewExpenseAdapter.updateList(expensesList);
         }
     }

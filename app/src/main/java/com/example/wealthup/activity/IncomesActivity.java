@@ -82,7 +82,6 @@ public class IncomesActivity extends AppCompatActivity implements
             }
         });
 
-
         bottomNavigationView.setSelectedItemId(R.id.nav_ganhos);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.incomes_fragment_container), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

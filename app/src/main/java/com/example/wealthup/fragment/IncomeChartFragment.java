@@ -18,13 +18,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wealthup.R;
-import com.example.wealthup.adapter.ExpenseAdapter;
 import com.example.wealthup.adapter.IncomeAdapter;
-import com.example.wealthup.database.dao.ExpenseDao;
 import com.example.wealthup.database.dao.IncomeDao;
-import com.example.wealthup.database.model.ExpenseModel;
 import com.example.wealthup.database.model.IncomeModel;
-import com.example.wealthup.viewmodel.ExpensesViewModel;
 import com.example.wealthup.viewmodel.IncomeViewModel;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import java.text.SimpleDateFormat;
@@ -78,7 +74,7 @@ public class IncomeChartFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         textViewIncomeDate = view.findViewById(R.id.textViewIncomeDate);
-        textViewTotalIncomes = view.findViewById(R.id.textViewTotalIncomes);
+        textViewTotalIncomes = view.findViewById(R.id.textViewTotalExpenses);
         timeFilterToggleGroup = view.findViewById(R.id.time_filter_toggle_group_incomes2);
         recyclerViewPreviewIncomes = view.findViewById(R.id.recyclerViewPreviewIncomes);
         imageViewSeeAllIncomes = view.findViewById(R.id.imageViewSeeAllIncomes);
@@ -119,7 +115,7 @@ public class IncomeChartFragment extends Fragment {
             }
         });
 
-        timeFilterToggleGroup.check(R.id.button_mes_ganhos2);
+        timeFilterToggleGroup.check(R.id.button_mes_gastos);
     }
 
     private void updateChartAndPreview(List<IncomeModel> expenses) {
@@ -158,11 +154,7 @@ public class IncomeChartFragment extends Fragment {
          //  barChartView.setChartData(chartData);
          //}
 
-        List<IncomeModel> previewList = new ArrayList<>();
-        for (int i = 0; i < Math.min(expenses.size(), 3); i++) {
-            previewList.add(expenses.get(i));
-        }
-        previewIncomeAdapter.updateList(previewList);
+        previewIncomeAdapter.updateList(expenses);
     }
 
     private void listExpanses(String currentFilter, String startOfWeek, String endOfWeek) {
@@ -185,7 +177,6 @@ public class IncomeChartFragment extends Fragment {
 
             incomeList = dao.SelectByMonth(month, preferences.getInt("KEY_ID", 0));
         }
-        IncomeAdapter adapter = new IncomeAdapter(incomeList);
-        recyclerViewPreviewIncomes.setAdapter(adapter);
+        previewIncomeAdapter.updateList(incomeList);
     }
 }

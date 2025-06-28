@@ -18,9 +18,9 @@ import com.example.wealthup.database.model.CategoryModel;
 
 import java.util.List;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ExpenseViewHolder> {
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
 
-    private List<CategoryModel> categoryModelList;
+    private static List<CategoryModel> categoryModelList;
 
     public CategoryAdapter(List<CategoryModel> categoryModelList) {
         this.categoryModelList = categoryModelList;
@@ -28,13 +28,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Expens
 
     @NonNull
     @Override
-    public ExpenseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_categorias, parent, false);
-        return new ExpenseViewHolder(view);
+        return new CategoryViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ExpenseViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         CategoryModel categoryModel = categoryModelList.get(position);
         holder.text_category_name.setText(categoryModel.getName());
     }
@@ -46,35 +46,35 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Expens
 
     @SuppressLint("NotifyDataSetChanged")
     public void updateList(List<CategoryModel> newList) {
-        Log.d("DEBUG", "updateList: novos itens = " + newList.size());
-        this.categoryModelList = newList;
+        categoryModelList = newList;
         notifyDataSetChanged();
     }
 
-    public static class ExpenseViewHolder extends RecyclerView.ViewHolder {
+    public class CategoryViewHolder extends RecyclerView.ViewHolder {
         TextView text_category_name;
-        //ImageView icon_delete_income;
+        ImageView icon_delete_income;
 
-        public ExpenseViewHolder(@NonNull View itemView) {
+        public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
             text_category_name = itemView.findViewById(R.id.text_category_name);
-            //icon_delete_income = itemView.findViewById(R.id.icon_delete_fixed_expense);
+            icon_delete_income = itemView.findViewById(R.id.icon_delete_category);
 
-            /*icon_delete_income.setOnClickListener(new View.OnClickListener() {
+            icon_delete_income.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         CategoryDao dao = new CategoryDao(itemView.getContext());
-                        int result = dao.Delete(position);
+                        int id = categoryModelList.get(position).getId();
+                        int result = dao.Delete(id);
                         if(result != -1){
-                            Toast.makeText(itemView.getContext(), "Gasto fixo removido!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(itemView.getContext(), "Categoria removida!", Toast.LENGTH_SHORT).show();
                             categoryModelList.remove(position);
                             updateList(categoryModelList);
                         }
                     }
                 }
-            });*/
+            });
         }
     }
 }

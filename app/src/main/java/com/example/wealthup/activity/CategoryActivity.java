@@ -51,6 +51,9 @@ public class CategoryActivity extends AppCompatActivity
         addCategory.setOnClickListener(v -> showAddCategoryModal());
         bottomNavigationView = findViewById(R.id.bottomNavInclude);
 
+        List<CategoryModel> categoryList = getCategories();
+        viewAllCategories(categoryList);
+
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -79,7 +82,6 @@ public class CategoryActivity extends AppCompatActivity
             }
         });
 
-
         bottomNavigationView.setSelectedItemId(R.id.nav_categorias);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.categories_list), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -93,14 +95,14 @@ public class CategoryActivity extends AppCompatActivity
         return dao.SelectAll(preferences.getInt("KEY_ID", 0));
     }
 
+    public void viewAllCategories(List<CategoryModel> category){
+        previewCategoryAdapter.updateList(category);
+    }
+
     private void showAddCategoryModal() {
         AddCategoryDialogFragment dialog = new AddCategoryDialogFragment();
         dialog.setOnCategoryAddedListener(this);
         dialog.show(getSupportFragmentManager(), "AddCategoryModal");
-    }
-
-    public void viewAllCategories(List<CategoryModel> category){
-        previewCategoryAdapter.updateList(category);
     }
 
     @Override

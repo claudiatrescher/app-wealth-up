@@ -21,13 +21,19 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.wealthup.activity.ExpensesActivity;
 import com.example.wealthup.database.dao.CategoryDao;
+import com.example.wealthup.database.dao.ExpenseDao;
+import com.example.wealthup.database.dao.IncomeDao;
 import com.example.wealthup.database.model.CategoryModel;
+import com.example.wealthup.database.model.ExpenseModel;
+import com.example.wealthup.database.model.IncomeModel;
 import com.example.wealthup.view.MyBarChartView;
 import com.example.wealthup.R;
 import com.example.wealthup.view.MyBarChartView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
@@ -39,6 +45,8 @@ public class HomeActivity extends AppCompatActivity {
     private ImageView buttonExitApp;
     SharedPreferences preferences;
     SharedPreferences.Editor edit;
+    private TextView totalExpenses;
+    private TextView totalIncomes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +61,34 @@ public class HomeActivity extends AppCompatActivity {
         profileImageInHeader = commonHeader.findViewById(R.id.profileImage);
         buttonExitApp = commonHeader.findViewById(R.id.buttonExitApp);
 
+        Calendar calendar = Calendar.getInstance();
 
-        bottomNavigationView = findViewById(R.id.bottomNavInclude);
         preferences = PreferenceManager.getDefaultSharedPreferences(HomeActivity.this);
         edit = preferences.edit();
+
+        totalExpenses = findViewById(R.id.totalExpenses);
+        totalIncomes = findViewById(R.id.totalIncomes);
+
+        ExpenseDao eDao = new ExpenseDao(HomeActivity.this);
+        IncomeDao iDao = new IncomeDao(HomeActivity.this);
+
+        double totalIncomesValue = 0;
+        double totalExpensesValue = 0;
+        List<IncomeModel> incomeList = iDao.SelectByMonth(calendar.get(Calendar.MONTH) + 1, preferences.getInt("KEY_ID", 0));
+        List<ExpenseModel> expenseList = eDao.SelectByMonth(calendar.get(Calendar.MONTH) + 1, preferences.getInt("KEY_ID", 0));
+
+        for (IncomeModel income : incomeList) {
+            totalIncomesValue += income.getAmount();
+        }
+        for (ExpenseModel expense : expenseList) {
+            totalExpensesValue += expense.getAmount();
+        }
+
+        totalExpenses.setText(String.valueOf(totalExpensesValue));
+        totalIncomes.setText(String.valueOf(totalIncomesValue));
+
+        bottomNavigationView = findViewById(R.id.bottomNavInclude);
+
 
         if(preferences.getBoolean("FIRST", false)) {
             insertCategories();
@@ -64,8 +96,8 @@ public class HomeActivity extends AppCompatActivity {
             edit.apply();
         }
 
-        nameUserText = findViewById(R.id.nameUserText);
-        nameUserText.setText(preferences.getString("KEY_NAME", ""));
+        nameUserTextInHeader = findViewById(R.id.nameUserText);
+        nameUserTextInHeader.setText(preferences.getString("KEY_NAME", ""));
         nameUserTextInHeader.setText(preferences.getString("KEY_NAME", ""));
 
         buttonExitApp.setOnClickListener(v -> {

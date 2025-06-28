@@ -64,7 +64,7 @@ public class CategoryDao extends AbstrataDao {
         contentValues.put(CategoryModel.COLUNA_COLOR, model.getColor());
         contentValues.put(CategoryModel.COLUNA_ID_USER, model.getIdUser());
 
-        int result = db.update(CategoryModel.TABLE_NAME, contentValues, "id = ?", new String[]{String.valueOf(model.getId())});
+        int result = db.update(CategoryModel.TABLE_NAME, contentValues, "_id = ?", new String[]{String.valueOf(model.getId())});
 
         Close();
 
@@ -74,7 +74,7 @@ public class CategoryDao extends AbstrataDao {
     public int Delete(int id) {
         Open();
 
-        int result = db.delete(CategoryModel.TABLE_NAME, "id = ?", new String[]{String.valueOf(id)});
+        int result = db.delete(CategoryModel.TABLE_NAME, "_id = ?", new String[]{String.valueOf(id)});
 
         Close();
         return result;

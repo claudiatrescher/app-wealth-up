@@ -1,5 +1,7 @@
 package com.example.wealthup.adapter;
 
+import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,11 +46,13 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseV
         return expenseModelList.size();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void updateList(List<ExpenseModel> newList) {
-        this.expenseModelList = newList;
+        expenseModelList = newList;
+        notifyDataSetChanged();
     }
 
-    public static class ExpenseViewHolder extends RecyclerView.ViewHolder {
+    public class ExpenseViewHolder extends RecyclerView.ViewHolder {
         TextView categoryTextView;
         TextView dateTextView;
         TextView descriptionTextView;
@@ -60,23 +64,29 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseV
             dateTextView = itemView.findViewById(R.id.text_date);
             descriptionTextView = itemView.findViewById(R.id.text_income_description);
             amountTextView = itemView.findViewById(R.id.text_amount);
-            //icon_delete_expense = itemView.findViewById(R.id.icon_delete_expense);
+            icon_delete_expense = itemView.findViewById(R.id.icon_delete_expense);
 
-            /*icon_delete_expense.setOnClickListener(new View.OnClickListener() {
+            icon_delete_expense.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         ExpenseDao dao = new ExpenseDao(itemView.getContext());
-                        int result = dao.Delete(position);
-                        if(result != -1){
-                            Toast.makeText(itemView.getContext(), "Gasto fixo removido!", Toast.LENGTH_SHORT).show();
+                        int id = expenseModelList.get(position).getId();
+                        int result = dao.Delete(id);
+                        if (result != -1) {
+                            Toast.makeText(itemView.getContext(), "Despesa removida!", Toast.LENGTH_SHORT).show();
                             expenseModelList.remove(position);
-                            updateList(expenseModelList);
+                            notifyItemRemoved(position);
+                        } else {
+                            Toast.makeText(itemView.getContext(), "qqqqqqida!", Toast.LENGTH_SHORT).show();
                         }
+                    } else {
+                        Toast.makeText(itemView.getContext(), "Dasfasfaida!", Toast.LENGTH_SHORT).show();;
                     }
                 }
-            });*/
+            });
+
         }
     }
 }
