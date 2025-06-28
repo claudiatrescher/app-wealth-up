@@ -16,6 +16,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.wealthup.activity.ExpensesActivity;
+import com.example.wealthup.database.dao.CategoryDao;
+import com.example.wealthup.database.model.CategoryModel;
 import com.example.wealthup.view.MyBarChartView;
 import com.example.wealthup.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -39,6 +41,12 @@ public class HomeActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         preferences = PreferenceManager.getDefaultSharedPreferences(HomeActivity.this);
         edit = preferences.edit();
+
+        if(preferences.getBoolean("FIRST", false)) {
+            insertCategories();
+            edit.putBoolean("FIRST", false);
+            edit.apply();
+        }
 
         nameUserText = findViewById(R.id.nameUserText);
         nameUserText.setText(preferences.getString("KEY_NAME", ""));
@@ -82,5 +90,16 @@ public class HomeActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    public void insertCategories(){
+        CategoryDao dao = new CategoryDao(this);
+
+        String[] categories = {"Alimentação","Transporte", "Saúde", "Educação", "Lazer", "Comprar", "Outros"};
+
+        for (String category : categories) {
+            CategoryModel model = new CategoryModel(category, "#FF0000", preferences.getInt("KEY_ID", 0));
+            int result = dao.Insert(model);
+        }
     }
 }

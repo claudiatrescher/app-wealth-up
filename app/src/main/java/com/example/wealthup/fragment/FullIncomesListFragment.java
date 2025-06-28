@@ -1,8 +1,6 @@
 package com.example.wealthup.fragment;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +15,6 @@ import com.example.wealthup.R;
 //import com.example.wealthup.adapter.ExpenseAdapter;
 //import com.example.wealthup.viewmodel.ExpensesViewModel;
 import com.google.android.material.button.MaterialButtonToggleGroup;
-
-import java.util.ArrayList;
 
 public class FullIncomesListFragment extends Fragment {
 
@@ -43,7 +39,7 @@ public class FullIncomesListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recyclerView = view.findViewById(R.id.recycler_view_incomes);
+        recyclerView = view.findViewById(R.id.recycler_view_category);
         timeFilterToggleIncome = view.findViewById(R.id.time_filter_toggle_income);
         editIncomeListTextSearch = view.findViewById(R.id.editIncomeListTextSearch);
 

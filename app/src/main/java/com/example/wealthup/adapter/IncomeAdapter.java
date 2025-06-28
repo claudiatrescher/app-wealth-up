@@ -3,12 +3,16 @@ package com.example.wealthup.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wealthup.R;
+import com.example.wealthup.database.dao.FixedExpenseDao;
+import com.example.wealthup.database.dao.IncomeDao;
 import com.example.wealthup.database.model.IncomeModel;
 
 import java.util.List;
@@ -51,13 +55,30 @@ public class IncomeAdapter extends RecyclerView.Adapter<IncomeAdapter.ExpenseVie
         TextView dateTextView;
         TextView descriptionTextView;
         TextView amountTextView;
-
+        //ImageView icon_delete_income;
         public ExpenseViewHolder(@NonNull View itemView) {
             super(itemView);
             categoryTextView = itemView.findViewById(R.id.text_income_category);
             dateTextView = itemView.findViewById(R.id.text_income_date);
             descriptionTextView = itemView.findViewById(R.id.text_income_description);
             amountTextView = itemView.findViewById(R.id.text_income_amount);
+            /*icon_delete_income = itemView.findViewById(R.id.icon_delete_income);
+
+            icon_delete_fixed_expense.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        IncomeDao dao = new IncomeDao(itemView.getContext());
+                        int result = dao.Delete(position);
+                        if(result != -1){
+                            Toast.makeText(itemView.getContext(), "Gasto fixo removido!", Toast.LENGTH_SHORT).show();
+                            incomeModelList.remove(position);
+                            updateList(incomeModelList);
+                        }
+                    }
+                }
+            });*/
         }
     }
 }

@@ -223,7 +223,7 @@ public class ExpenseDao extends AbstrataDao{
     public int Delete(int id) {
         Open();
 
-        int result = db.delete(ExpenseModel.TABLE_NAME, "id = ?", new String[]{String.valueOf(id)});
+        int result = db.delete(ExpenseModel.TABLE_NAME, "_id = ?", new String[]{String.valueOf(id)});
 
         Close();
 

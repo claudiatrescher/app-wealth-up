@@ -15,13 +15,17 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.wealthup.R;
+import com.example.wealthup.database.dao.CategoryDao;
 import com.example.wealthup.database.dao.IncomeDao;
+import com.example.wealthup.database.model.CategoryModel;
 import com.example.wealthup.database.model.ExpenseModel;
 import com.example.wealthup.database.model.IncomeModel;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 public class AddIncomeDialogFragment extends DialogFragment {
@@ -139,12 +143,20 @@ public class AddIncomeDialogFragment extends DialogFragment {
     }
 
     private void showCategoryPickerDialog() {
-        final String[] categories = {"Alimentação", "Transporte", "Moradia", "Lazer", "Educação", "Saúde", "Compras", "Outros"};
+        final List<String> categories = new ArrayList<>();
+
+        CategoryDao dao = new CategoryDao(getContext());
+        List<CategoryModel> categoriesList = dao.SelectAll(preferences.getInt("KEY_ID", 0));
+
+        for (CategoryModel category : categoriesList) {
+            categories.add(category.getName());
+        }
+        String[] categoriesArray = categories.toArray(new String[0]);
 
         new android.app.AlertDialog.Builder(getContext())
                 .setTitle("Selecione a Categoria")
-                .setItems(categories, (dialog, which) -> {
-                    editTextIncomeCategory.setText(categories[which]);
+                .setItems(categoriesArray, (dialog, which) -> {
+                    editTextIncomeCategory.setText(categoriesArray[which]);
                 })
                 .setNegativeButton("Cancelar", null)
                 .show();

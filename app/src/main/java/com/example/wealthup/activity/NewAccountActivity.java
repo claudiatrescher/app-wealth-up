@@ -102,6 +102,7 @@ public class NewAccountActivity extends AppCompatActivity {
 
             edit.putInt("KEY_ID", userB.getId());
             edit.putString("KEY_NAME",userB.getName());
+            edit.putBoolean("FIRST", true);
             edit.apply();
 
             Intent intent = new Intent(NewAccountActivity.this, HomeActivity.class);
