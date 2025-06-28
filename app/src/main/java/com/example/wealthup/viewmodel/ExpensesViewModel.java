@@ -9,8 +9,11 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.wealthup.database.dao.ExpenseDao;
 import com.example.wealthup.database.model.ExpenseModel;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
@@ -28,7 +31,6 @@ public class ExpensesViewModel extends AndroidViewModel {
     private MutableLiveData<String> searchQuery = new MutableLiveData<>("");
     SharedPreferences preferences;
     SharedPreferences.Editor edit;
-    private ListView recyclerViewPreviewExpenses;
 
     private ExecutorService executorService;
 
@@ -38,6 +40,7 @@ public class ExpensesViewModel extends AndroidViewModel {
         executorService = Executors.newSingleThreadExecutor();
         preferences = PreferenceManager.getDefaultSharedPreferences(ExpensesViewModel.this.getApplication());
         edit = preferences.edit();
+
         loadAllExpenses();
     }
 

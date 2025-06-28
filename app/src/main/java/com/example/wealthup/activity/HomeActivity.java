@@ -19,6 +19,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.wealthup.activity.ExpensesActivity;
+import com.example.wealthup.database.dao.CategoryDao;
+import com.example.wealthup.database.model.CategoryModel;
+import com.example.wealthup.view.MyBarChartView;
 import com.example.wealthup.R;
 import com.example.wealthup.view.MyBarChartView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -54,6 +58,14 @@ public class HomeActivity extends AppCompatActivity {
         preferences = PreferenceManager.getDefaultSharedPreferences(HomeActivity.this);
         edit = preferences.edit();
 
+        if(preferences.getBoolean("FIRST", false)) {
+            insertCategories();
+            edit.putBoolean("FIRST", false);
+            edit.apply();
+        }
+
+        nameUserText = findViewById(R.id.nameUserText);
+        nameUserText.setText(preferences.getString("KEY_NAME", ""));
         nameUserTextInHeader.setText(preferences.getString("KEY_NAME", ""));
 
         buttonExitApp.setOnClickListener(v -> {
@@ -131,5 +143,16 @@ public class HomeActivity extends AppCompatActivity {
                     dialog.dismiss();
                 })
                 .show();
+    }
+
+    public void insertCategories(){
+        CategoryDao dao = new CategoryDao(this);
+
+        String[] categories = {"Alimentação","Transporte", "Saúde", "Educação", "Lazer", "Comprar", "Outros"};
+
+        for (String category : categories) {
+            CategoryModel model = new CategoryModel(category, "#FF0000", preferences.getInt("KEY_ID", 0));
+            int result = dao.Insert(model);
+        }
     }
 }

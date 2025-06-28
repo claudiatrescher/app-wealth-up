@@ -14,10 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wealthup.R;
-import com.example.wealthup.adapter.CategoryExpenseAdapter;
-import com.example.wealthup.adapter.FixedExpenseAdapter;
+import com.example.wealthup.adapter.CategoryAdapter;
 import com.example.wealthup.database.dao.CategoryDao;
-import com.example.wealthup.database.dao.FixedExpenseDao;
 import com.example.wealthup.database.model.CategoryModel;
 import com.example.wealthup.database.model.FixedExpenseModel;
 import com.example.wealthup.ui.dialog.AddCategoryDialogFragment;
@@ -37,7 +35,7 @@ public class InformationsActivity extends AppCompatActivity
     private CardView notificationCard;
     private TextView notificationMessageTextView;
     private TextView notificationItemNameTextView;
-    private CategoryExpenseAdapter previewCategoryAdapter;
+    private CategoryAdapter previewCategoryAdapter;
     private RecyclerView recycler_view_expenses;
     private ImageButton btnCategory, btnFixedExpenses, btnGoals;
     private MaterialButtonToggleGroup time_filter_toggle_group;
@@ -66,11 +64,8 @@ public class InformationsActivity extends AppCompatActivity
         time_filter_toggle_group = findViewById(R.id.time_filter_toggle_group);
 
         recycler_view_expenses = findViewById(R.id.recycler_view_expenses);
-
         recycler_view_expenses.setLayoutManager(new LinearLayoutManager(InformationsActivity.this));
-
-        previewCategoryAdapter = new CategoryExpenseAdapter(new ArrayList<>());
-
+        previewCategoryAdapter = new CategoryAdapter(new ArrayList<>());
         recycler_view_expenses.setAdapter(previewCategoryAdapter);
         recycler_view_expenses.setNestedScrollingEnabled(false);
 

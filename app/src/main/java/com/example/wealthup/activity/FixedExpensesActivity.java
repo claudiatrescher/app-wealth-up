@@ -5,27 +5,33 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
+
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wealthup.R;
+import com.example.wealthup.adapter.CategoryAdapter;
+import com.example.wealthup.adapter.FixedExpenseAdapter;
+import com.example.wealthup.database.dao.CategoryDao;
+import com.example.wealthup.database.dao.FixedExpenseDao;
+import com.example.wealthup.database.model.CategoryModel;
 import com.example.wealthup.database.model.FixedExpenseModel;
 import com.example.wealthup.ui.dialog.AddCategoryDialogFragment;
 import com.example.wealthup.ui.dialog.AddFixedExpenseDialogFragment;
 import com.example.wealthup.ui.dialog.AddGoalDialogFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class FixedExpensesActivity extends AppCompatActivity
@@ -33,22 +39,33 @@ public class FixedExpensesActivity extends AppCompatActivity
 
 
     private ImageButton addFixedExpense;
+    private FixedExpenseAdapter previewFixedExpenseAdapter;
+    private RecyclerView recycler_view_fixed_expense;
+    SharedPreferences preferences;
+    SharedPreferences.Editor edit;
     private BottomNavigationView bottomNavigationView;
     private TextView nameUserTextInHeader;
     private ImageView profileImageInHeader;
     private ImageView buttonExitApp;
-    SharedPreferences preferences;
-    SharedPreferences.Editor edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fixed_expenses_list);
 
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        edit = preferences.edit();
+
 
 
         addFixedExpense = findViewById(R.id.addFixedExpense);
         bottomNavigationView = findViewById(R.id.bottomNavInclude);
+
+        recycler_view_fixed_expense = findViewById(R.id.recycler_view_fixed_expense);
+        recycler_view_fixed_expense.setLayoutManager(new LinearLayoutManager(FixedExpensesActivity.this));
+        previewFixedExpenseAdapter = new FixedExpenseAdapter(new ArrayList<>());
+        recycler_view_fixed_expense.setAdapter(previewFixedExpenseAdapter);
+        recycler_view_fixed_expense.setNestedScrollingEnabled(false);
 
         addFixedExpense.setOnClickListener(v -> showAddFixedExpenseModal());
 
@@ -88,7 +105,6 @@ public class FixedExpensesActivity extends AppCompatActivity
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
     }
 
     private void showAddFixedExpenseModal() {
@@ -97,17 +113,18 @@ public class FixedExpensesActivity extends AppCompatActivity
         dialog.show(getSupportFragmentManager(), "AddFixedExpenseModal");
     }
 
+    public void viewAllFixedExpenses(List<FixedExpenseModel> fixedExpenses){
+        previewFixedExpenseAdapter.updateList(fixedExpenses);
+    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        if (dbHelper != null) {
-//            dbHelper.close();
-//        }
     }
 
     @Override
     public void onFixedExpenseAdded() {
-
+        List<FixedExpenseModel> fixedExpenses = getFixedExpenses();
+        viewAllFixedExpenses(fixedExpenses);
     }
 }

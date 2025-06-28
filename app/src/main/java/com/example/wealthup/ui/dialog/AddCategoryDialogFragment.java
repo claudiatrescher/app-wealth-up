@@ -19,6 +19,7 @@ import com.example.wealthup.R;
 import com.example.wealthup.database.dao.CategoryDao;
 import com.example.wealthup.database.model.CategoryModel;
 
+
 public class AddCategoryDialogFragment extends DialogFragment {
 
     private EditText editTextCategoryName;

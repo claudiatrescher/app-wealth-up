@@ -76,7 +76,7 @@ public class FixedExpenseDao extends AbstrataDao {
     public int Delete(int id){
         Open();
 
-        int result = db.delete(FixedExpenseModel.TABLE_NAME, "id = ?", new String[]{String.valueOf(id)});
+        int result = db.delete(FixedExpenseModel.TABLE_NAME, "_id = ?", new String[]{String.valueOf(id)});
 
         Close();
 
@@ -115,7 +115,7 @@ public class FixedExpenseDao extends AbstrataDao {
 
         Open();
 
-        Cursor c = db.rawQuery("SELECT * FROM " + FixedExpenseModel.TABLE_NAME + " WHERE  _id_user = ?", new String[]{String.valueOf(userId)});
+        Cursor c = db.rawQuery("SELECT * FROM " + FixedExpenseModel.TABLE_NAME + " WHERE  _id_user = ? ORDER BY day DESC", new String[]{String.valueOf(userId)});
 
         if (c.getCount() > 0) {
             c.moveToFirst();
@@ -126,8 +126,8 @@ public class FixedExpenseDao extends AbstrataDao {
                 fixedExpense.setName(c.getString(1));
                 fixedExpense.setCategory(c.getString(2));
                 fixedExpense.setDueDateMillis(c.getLong(3));
-                fixedExpense.setValue(c.getInt(4));
-                fixedExpense.setIdUser(c.getInt(5));
+                fixedExpense.setValue(c.getInt(6));
+                fixedExpense.setIdUser(c.getInt(7));
 
                 list.add(fixedExpense);
             } while (c.moveToNext());

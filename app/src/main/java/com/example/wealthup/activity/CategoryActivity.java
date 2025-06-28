@@ -5,48 +5,48 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.wealthup.R;
-import com.example.wealthup.adapter.ExpenseAdapter;
+import com.example.wealthup.adapter.CategoryAdapter;
+import com.example.wealthup.database.dao.CategoryDao;
 import com.example.wealthup.database.model.CategoryModel;
 import com.example.wealthup.ui.dialog.AddCategoryDialogFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryActivity extends AppCompatActivity
     implements AddCategoryDialogFragment.OnCategoryAddedListener {
 
-    private RecyclerView recyclerViewCategories;
+    private CategoryAdapter previewCategoryAdapter;
+    private RecyclerView recycler_view_expenses;
     private ImageButton addCategory;
-    private List<CategoryModel> categoryList;
-    private BottomNavigationView bottomNavigationView;
-    private TextView nameUserTextInHeader;
-    private ImageView profileImageInHeader;
-    private ImageView buttonExitApp;
     SharedPreferences preferences;
     SharedPreferences.Editor edit;
+    private BottomNavigationView bottomNavigationView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_list);
 
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        edit = preferences.edit();
+
+        recycler_view_expenses = findViewById(R.id.recycler_view_category);
+        recycler_view_expenses.setLayoutManager(new LinearLayoutManager(CategoryActivity.this));
+        previewCategoryAdapter = new CategoryAdapter(new ArrayList<>());
+        recycler_view_expenses.setAdapter(previewCategoryAdapter);
+        recycler_view_expenses.setNestedScrollingEnabled(false);
+
         addCategory = findViewById(R.id.addCategory);
-        recyclerViewCategories = findViewById(R.id.recycler_view_categories);
 
         addCategory.setOnClickListener(v -> showAddCategoryModal());
         bottomNavigationView = findViewById(R.id.bottomNavInclude);
@@ -88,21 +88,29 @@ public class CategoryActivity extends AppCompatActivity
         });
     }
 
+    public List<CategoryModel> getCategories() {
+        CategoryDao dao = new CategoryDao(this);
+        return dao.SelectAll(preferences.getInt("KEY_ID", 0));
+    }
+
     private void showAddCategoryModal() {
         AddCategoryDialogFragment dialog = new AddCategoryDialogFragment();
         dialog.setOnCategoryAddedListener(this);
         dialog.show(getSupportFragmentManager(), "AddCategoryModal");
     }
 
+    public void viewAllCategories(List<CategoryModel> category){
+        previewCategoryAdapter.updateList(category);
+    }
+
     @Override
     public void onCategoryAdded() {
+        List<CategoryModel> categorias = getCategories();
+        viewAllCategories(categorias);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        if (dbHelper != null) {
-//            dbHelper.close();
-//        }
     }
 }
