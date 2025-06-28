@@ -65,7 +65,7 @@ public class IncomeDao extends AbstrataDao{
     public IncomeModel SelectExpense(int id) {
         Open();
 
-        Cursor c = db.rawQuery("SELECT * FROM " + IncomeModel.TABLE_NAME + " WHERE id = ?", new String[]{String.valueOf(id)});
+        Cursor c = db.rawQuery("SELECT * FROM " + IncomeModel.TABLE_NAME + " WHERE id = ? ", new String[]{String.valueOf(id)});
          if(c.getCount() > 0) {
             c.moveToFirst();
 
@@ -93,7 +93,7 @@ public class IncomeDao extends AbstrataDao{
 
         Open();
 
-        Cursor c = db.rawQuery("SELECT * FROM " + IncomeModel.TABLE_NAME + " WHERE category = ? AND _user_id = ?", new String[]{category, String.valueOf(userId)});
+        Cursor c = db.rawQuery("SELECT * FROM " + IncomeModel.TABLE_NAME + " WHERE category = ? AND _user_id = ? ORDER BY day DESC", new String[]{category, String.valueOf(userId)});
 
         if (c.getCount() > 0) {
             c.moveToFirst();
@@ -121,7 +121,7 @@ public class IncomeDao extends AbstrataDao{
     public List<IncomeModel> SelectByDay(int day, int userId) {
         List<IncomeModel> list = new ArrayList<>();
         Open();
-        Cursor c = db.rawQuery("SELECT * FROM " + IncomeModel.TABLE_NAME + " WHERE day = ? AND _id_user = ?", new String[]{String.valueOf(day), String.valueOf(userId)});
+        Cursor c = db.rawQuery("SELECT * FROM " + IncomeModel.TABLE_NAME + " WHERE day = ? AND _id_user = ? ORDER BY day DESC", new String[]{String.valueOf(day), String.valueOf(userId)});
         if (c.getCount() > 0) {
             c.moveToFirst();
             do {
@@ -147,7 +147,7 @@ public class IncomeDao extends AbstrataDao{
     public List<IncomeModel> SelectByMonth(int month, int userId) {
         List<IncomeModel> list = new ArrayList<>();
         Open();
-        Cursor c = db.rawQuery("SELECT * FROM " + IncomeModel.TABLE_NAME + " WHERE month = ? AND _id_user = ?", new String[]{String.valueOf(month), String.valueOf(userId)});
+        Cursor c = db.rawQuery("SELECT * FROM " + IncomeModel.TABLE_NAME + " WHERE month = ? AND _id_user = ? ORDER BY day DESC", new String[]{String.valueOf(month), String.valueOf(userId)});
         if (c.getCount() > 0) {
             c.moveToFirst();
             do {
@@ -170,7 +170,7 @@ public class IncomeDao extends AbstrataDao{
     public List<IncomeModel> SelectByWeek(int dayStart, int dayEnd, int month, int userId) {
         List<IncomeModel> list = new ArrayList<>();
         Open();
-        Cursor c = db.rawQuery("SELECT * FROM " + IncomeModel.TABLE_NAME + " WHERE day BETWEEN ? AND ? AND month = ? AND _id_user = ?", new String[]{String.valueOf(dayStart), String.valueOf(dayEnd), String.valueOf(month), String.valueOf(userId)});
+        Cursor c = db.rawQuery("SELECT * FROM " + IncomeModel.TABLE_NAME + " WHERE day BETWEEN ? AND ? AND month = ? AND _id_user = ? ORDER BY day DESC", new String[]{String.valueOf(dayStart), String.valueOf(dayEnd), String.valueOf(month), String.valueOf(userId)});
         if (c.getCount() > 0) {
             c.moveToFirst();
             do {

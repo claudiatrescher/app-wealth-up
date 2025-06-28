@@ -42,6 +42,10 @@
             android:exported="true" />
 
         <activity
+            android:name=".activity.IncomesActivity"
+            android:exported="true" />
+
+        <activity
             android:name=".activity.InformationsActivity"
             android:exported="true" />
 

@@ -4,12 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,7 +37,6 @@ public class ChartAndPreviewFragment extends Fragment {
     private RecyclerView recyclerViewPreviewExpenses;
     private ExpenseAdapter previewExpenseAdapter;
     private ImageView imageViewSeeAllExpenses;
-
     private ExpensesViewModel expensesViewModel;
     private SimpleDateFormat uiDateFormatMonth = new SimpleDateFormat("MMMM", new Locale("pt", "BR"));
     private SimpleDateFormat uiDateFormatDay = new SimpleDateFormat("EEE, dd 'de' MMM", new Locale("pt", "BR"));
@@ -103,9 +99,9 @@ public class ChartAndPreviewFragment extends Fragment {
         timeFilterToggleGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
             if (isChecked) {
                 String filterType;
-                if (checkedId == R.id.button_dia_gastos) {
+                if (checkedId == R.id.button_dia_ganhos2) {
                     filterType = "Dia";
-                } else if (checkedId == R.id.button_semana_gastos) {
+                } else if (checkedId == R.id.button_semana_ganhos2) {
                     filterType = "Semana";
                 } else {
                     filterType = "Mês";
@@ -155,9 +151,9 @@ public class ChartAndPreviewFragment extends Fragment {
         }
         textViewTotalExpenses.setText(String.format(Locale.getDefault(), "R$ %.2f", totalPeriodExpenses));
 
-        // if (barChartView != null) {
-        //    barChartView.setChartData(chartData);
-        // }
+        /*if (barChartView != null) {
+           barChartView.setChartData(chartData);
+        }*/
 
         List<ExpenseModel> previewList = new ArrayList<>();
         for (int i = 0; i < Math.min(expenses.size(), 3); i++) {

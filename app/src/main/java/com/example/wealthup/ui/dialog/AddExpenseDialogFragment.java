@@ -1,7 +1,5 @@
 package com.example.wealthup.ui.dialog;
 
-import static com.example.wealthup.R.*;
-
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,8 +16,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.wealthup.R;
-import com.example.wealthup.activity.MainActivity;
-import com.example.wealthup.database.DBOpenHelper;
 import com.example.wealthup.database.dao.ExpenseDao;
 import com.example.wealthup.database.model.ExpenseModel;
 import com.google.android.material.textfield.TextInputEditText;
